@@ -8,6 +8,7 @@
 
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
+from medical_resources.models import MedicalSupplies, UserInfo, MedicalSuppliesType
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -24,7 +25,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 
 class MedicalSuppliesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = User
+        model = MedicalSupplies
         fields = ('m_id', 'm_name', 'm_type', 'm_store_name', 'm_longitude', \
                   'm_latitude', 'm_price', 'm_count', 'm_address', 'm_city', \
                   'm_time')
@@ -32,5 +33,11 @@ class MedicalSuppliesSerializer(serializers.HyperlinkedModelSerializer):
 
 class UserInfoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Group
+        model = UserInfo
         fields = ('u_id', 'u_name', 'u_phone')
+
+
+class MedicalSuppliesTypeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = MedicalSuppliesType
+        fields = ('t_id', 't_name')

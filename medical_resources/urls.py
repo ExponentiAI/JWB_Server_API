@@ -4,20 +4,17 @@
 # @Author  : Roger 
 # @Version : V 0.1
 # @Email   : 550997728@qq.com
-# @File    : url.py
+# @File    : urls.py
 
 from django.conf.urls import url, include
 from rest_framework import routers
 
-from medical_resources import views
-
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
 
 # 使用自动URL路由连接我们的API。
 # 另外，我们还包括支持浏览器浏览API的登录URL。
 urlpatterns = [
-    url(r'^MedicalSupplies/', include(router.urls)),
+    # url(r'^UserInfo/', include(views.UserInfoViewSet)),
+    # url(r'^get_MedicalSupplies_item/', include(views.MedicalSuppliesViewSet)),
     url(r'^api-UserInfo/', include('rest_framework.urls', namespace='rest_framework'))
 ]

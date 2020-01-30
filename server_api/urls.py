@@ -16,16 +16,18 @@ Including another URLconf
 from django.conf.urls import url, include
 from rest_framework import routers
 from medical_resources import views
-from medical_resources import url as mr_url
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
+router.register(r'UserInfo', views.UserInfoViewSet)
+router.register(r'MedicalSupplies', views.MedicalSuppliesViewSet)
+router.register(r'MedicalSuppliesType', views.MedicalSuppliesTypeViewSet)
 
 # 使用自动URL路由连接我们的API。
 # 另外，我们还包括支持浏览器浏览API的登录URL。
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^wuhan/', include(mr_url)),
+    url(r'^wuhan/', include('medical_resources.urls')),
 ]
