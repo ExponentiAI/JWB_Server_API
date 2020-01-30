@@ -22,3 +22,15 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'name')
 
 
+class MedicalSuppliesSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ('m_id', 'm_name', 'm_type', 'm_store_name', 'm_longitude', \
+                  'm_latitude', 'm_price', 'm_count', 'm_address', 'm_city', \
+                  'm_time')
+
+
+class UserInfoSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Group
+        fields = ('u_id', 'u_name', 'u_phone')
