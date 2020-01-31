@@ -34,7 +34,7 @@ class MedicalSuppliesSerializer(serializers.HyperlinkedModelSerializer):
 class UserInfoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserInfo
-        fields = ('u_id', 'u_name', 'u_phone')
+        fields = ('u_id', 'nick_name', 'avatar_url','gender')
 
 
 class MedicalSuppliesTypeSerializer(serializers.HyperlinkedModelSerializer):

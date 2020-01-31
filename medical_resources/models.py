@@ -10,7 +10,7 @@ from django.db import models
 
 
 class MedicalSuppliesType(models.Model):
-    t_id = models.CharField(max_length=100, verbose_name='物资类型ID', primary_key=True)
+    t_id = models.CharField(max_length=100, verbose_name='物资类型ID',)
     t_name = models.CharField(max_length=15, verbose_name='物资类型', unique=True)
 
     def __str__(self):
