@@ -1,3 +1,32 @@
+# 后台启动步骤
+
+# 1.进入项目目录：
+```
+cd /root/code/wuhan_server_api
+```
+# 2. 激活虚拟环境
+```
+conda activate wuhan
+```
+
+# 3. 启动uwsgi服务
+
+## 3.1 前台运行命令
+```
+uwsgi --ini app_server_uwsgi.ini 
+```
+## 3.2 后台运行命令
+```
+nohup uwsgi --ini app_server_uwsgi.ini &
+```
+
+访问服务器地址：
+```
+http://121.43.233.66/
+```
+
+
+服务器配置信息：
 ```
 服务器:
 
