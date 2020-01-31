@@ -38,6 +38,8 @@ class MedicalSupplies(models.Model):
 
 
 class UserInfo(models.Model):
-    u_id = models.CharField(max_length=100, verbose_name='用户ID', primary_key=True)
-    u_name = models.CharField(max_length=15, verbose_name='用户名')
-    u_phone = models.CharField(max_length=20, verbose_name='手机号')
+    u_id = models.CharField(max_length=100, verbose_name='用户openID', primary_key=True)
+    nick_name = models.CharField(max_length=15, verbose_name='用户名')
+    avatar_url = models.CharField(max_length=20, verbose_name='头像')
+    gender = models.CharField(max_length=20, verbose_name='性别')
+

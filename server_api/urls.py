@@ -28,6 +28,6 @@ router.register(r'MedicalSuppliesType', views.MedicalSuppliesTypeViewSet)
 # 另外，我们还包括支持浏览器浏览API的登录URL。
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework111')),
     url(r'^wuhan/', include('medical_resources.urls')),
 ]
