@@ -22,10 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '(yq5b9a71*s(+0jba$n^l#-r&40-o0o7d5p#*x0)--g)6(c7m='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*', ]
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -50,6 +49,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'server_api.urls'
+
+# STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+STATIC_ROOT = "/static/"
 
 TEMPLATES = [
     {
