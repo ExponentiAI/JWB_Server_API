@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from rest_framework import routers
 from medical_resources import views
+from django.contrib import admin
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
@@ -28,6 +29,7 @@ router.register(r'MedicalSuppliesType', views.MedicalSuppliesTypeViewSet)
 # 另外，我们还包括支持浏览器浏览API的登录URL。
 urlpatterns = [
     url(r'^', include(router.urls)),
+    url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework111')),
     url(r'^wuhan/', include('medical_resources.urls')),
 ]
