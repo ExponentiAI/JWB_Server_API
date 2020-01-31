@@ -20,10 +20,12 @@ uwsgi --ini app_server_uwsgi.ini
 nohup uwsgi --ini app_server_uwsgi.ini &
 ```
 
-访问服务器地址：
+### 查看api信息：
 ```
 http://121.43.233.66/
 ```
+
+----
 
 
 服务器配置信息：
