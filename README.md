@@ -57,6 +57,11 @@ https://github.com/ExponentiAI/JWB_Server_API.git
 
 外网访问链接：
 http://121.43.233.66:8000/
+https://jwb.comdesignlab.com/
+
+mysql数据库：
+root
+Hnulab#1234
 
 
 运行环境：
