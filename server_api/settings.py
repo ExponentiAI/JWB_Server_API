@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'medical_resources.apps.MedicalResourcesConfig',
+    'medical_resources',
+    # 'medical_resources.apps.MedicalResourcesConfig',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +81,7 @@ WSGI_APPLICATION = 'server_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'wuhan',
+        'NAME': 'JWB',
         'PORT': '3306',
         'HOST': '121.43.233.66',
         'USER': 'luojie',

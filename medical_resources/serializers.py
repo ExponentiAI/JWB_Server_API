@@ -26,15 +26,16 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class MedicalSuppliesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = MedicalSupplies
-        fields = ('m_id', 'm_name', 'm_type', 'm_store_name', 'm_longitude', \
-                  'm_latitude', 'm_price', 'm_count', 'm_address', 'm_city', \
+        fields = ('m_id', 'u_id', 'm_name', 'm_type', 'm_store_name', 'm_longitude', \
+                  'm_latitude', 'm_describe', 'm_range', 'm_prescription', \
+                  'm_price', 'm_count', 'm_address', 'm_city', \
                   'm_time')
 
 
 class UserInfoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserInfo
-        fields = ('u_id', 'nick_name', 'avatar_url','gender')
+        fields = ('u_id', 'nick_name', 'avatar_url', 'gender')
 
 
 class MedicalSuppliesTypeSerializer(serializers.HyperlinkedModelSerializer):

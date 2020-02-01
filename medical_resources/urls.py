@@ -14,7 +14,5 @@ router = routers.DefaultRouter()
 # 使用自动URL路由连接我们的API。
 # 另外，我们还包括支持浏览器浏览API的登录URL。
 urlpatterns = [
-    # url(r'^UserInfo/', include(views.UserInfoViewSet)),
-    # url(r'^get_MedicalSupplies_item/', include(views.MedicalSuppliesViewSet)),
     url(r'^api-UserInfo/', include('rest_framework.urls', namespace='rest_framework'))
 ]
