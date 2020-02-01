@@ -6,7 +6,7 @@
 
 # 1.进入项目目录：
 ```
-cd /root/code/wuhan_server_api
+cd /root/code/JWB_Server_API
 ```
 # 2. 激活虚拟环境
 ```
@@ -33,7 +33,7 @@ http://121.43.233.66/
 
 后台管理系统
 ```
-http://121.43.233.66:8002/admin/
+http://121.43.233.66/admin/
 root 
 hnuwulab 
 ```
@@ -52,7 +52,7 @@ hnu..1234
 /root/code
 
 github托管:
-https://github.com/luojie1024/wuhan_server_api.git
+https://github.com/ExponentiAI/JWB_Server_API.git
 
 
 外网访问链接：
