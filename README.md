@@ -6,7 +6,7 @@
 
 # 1.进入项目目录：
 ```
-cd /root/code/JWB_Server_API
+cd /root/code/wuhan_server_api
 ```
 # 2. 激活虚拟环境
 ```
@@ -14,6 +14,11 @@ conda activate wuhan
 ```
 
 # 3. 启动uwsgi服务
+
+
+
+
+
 
 ## 3.1 前台运行命令
 ```
@@ -33,7 +38,7 @@ http://121.43.233.66/
 
 后台管理系统
 ```
-http://121.43.233.66/admin/
+http://121.43.233.66:8002/admin/
 root 
 hnuwulab 
 ```
@@ -52,16 +57,11 @@ hnu..1234
 /root/code
 
 github托管:
-https://github.com/ExponentiAI/JWB_Server_API.git
+https://github.com/luojie1024/wuhan_server_api.git
 
 
 外网访问链接：
 http://121.43.233.66:8000/
-https://jwb.comdesignlab.com/
-
-mysql数据库：
-root
-Hnulab#1234
 
 
 运行环境：

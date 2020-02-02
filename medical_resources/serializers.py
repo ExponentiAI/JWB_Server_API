@@ -8,37 +8,49 @@
 
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from medical_resources.models import MedicalSupplies, UserInfo, MedicalSuppliesType
+from medical_resources.models import *
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ('url', 'username', 'email', 'groups')
+        fields = '__all__'
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
-        fields = ('url', 'name')
+        fields = '__all__'
 
 
-class MedicalSuppliesSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = MedicalSupplies
-        fields = ('m_id', 'u_id', 'm_name', 'm_type', 'm_store_name', 'm_longitude', \
-                  'm_latitude', 'm_describe', 'm_range', 'm_prescription', \
-                  'm_price', 'm_count', 'm_address', 'm_city', \
-                  'm_time')
-
-
-class UserInfoSerializer(serializers.HyperlinkedModelSerializer):
+class UserInfoSerializer(serializers.HyperlinkedModelSerializer):   #user序列化器
     class Meta:
         model = UserInfo
-        fields = ('u_id', 'nick_name', 'avatar_url', 'gender')
+        fields = '__all__'
 
-
-class MedicalSuppliesTypeSerializer(serializers.HyperlinkedModelSerializer):
+class SupAndDemSerializer(serializers.ModelSerializer):   #供求序列化器
+    u_id =  UserInfoSerializer()
     class Meta:
-        model = MedicalSuppliesType
-        fields = ('t_id', 't_name')
+        model = SupAndDem
+        fields = '__all__'
+
+class MaterialSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Material
+        fields = '__all__'
+
+
+
+
+
+
+
+# class MedicalSuppliesTypeSerializer(serializers.HyperlinkedModelSerializer):
+#     class Meta:
+#         model = MedicalSuppliesType
+#         fields = '__all__'
+#
+# class MedicalSuppliesSerializer(serializers.HyperlinkedModelSerializer):
+#     class Meta:
+#         model = MedicalSupplies
+#         fields = '__all__'

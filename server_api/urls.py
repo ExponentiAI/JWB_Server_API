@@ -17,13 +17,16 @@ from django.conf.urls import url, include
 from rest_framework import routers
 from medical_resources import views
 from django.contrib import admin
+from rest_framework.routers import DefaultRouter
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register(r'UserInfo', views.UserInfoViewSet)
-router.register(r'MedicalSupplies', views.MedicalSuppliesViewSet)
-router.register(r'MedicalSuppliesType', views.MedicalSuppliesTypeViewSet)
+# router.register(r'MedicalSupplies', views.MedicalSuppliesViewSet)
+# router.register(r'MedicalSuppliesType', views.MedicalSuppliesTypeViewSet)
+router.register('SearchResult', views.SearchResultViewSet, basename='codes')
+
 
 # 使用自动URL路由连接我们的API。
 # 另外，我们还包括支持浏览器浏览API的登录URL。

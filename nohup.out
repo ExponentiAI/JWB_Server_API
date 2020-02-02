@@ -1,0 +1,253 @@
+[uWSGI] getting INI configuration from app_server_uwsgi.ini
+open("./python_plugin.so"): No such file or directory [core/utils.c line 3724]
+!!! UNABLE to load uWSGI plugin: ./python_plugin.so: cannot open shared object file: No such file or directory !!!
+*** Starting uWSGI 2.0.18 (64bit) on [Sat Feb  1 15:20:35 2020] ***
+compiled with version: 4.8.5 20150623 (Red Hat 4.8.5-11) on 31 January 2020 06:50:07
+os: Linux-3.10.0-514.26.2.el7.x86_64 #1 SMP Tue Jul 4 15:04:05 UTC 2017
+nodename: izbp15k4ho3tbdnc71f3tvz
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 2
+current working directory: /root/code/JWB_Server_API
+detected binary path: /root/ide/anancoda3/envs/wuhan/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /root/code/JWB_Server_API
+your processes number limit is 31210
+your memory page size is 4096 bytes
+detected max file descriptor number: 65535
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:9006 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.6.10 |Anaconda, Inc.| (default, Jan  7 2020, 21:14:29)  [GCC 7.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x196c360
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 218760 bytes (213 KB) for 2 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x196c360 pid: 32612 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 32612)
+spawned uWSGI worker 1 (pid: 32614, cores: 1)
+spawned uWSGI worker 2 (pid: 32615, cores: 1)
+/root/ide/anancoda3/envs/wuhan/lib/python3.6/site-packages/rest_framework/pagination.py:200: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <class 'medical_resources.models.MedicalSupplies'> QuerySet.
+  paginator = self.django_paginator_class(queryset, page_size)
+[pid: 32614|app: 0|req: 1/1] 223.152.205.115 () {46 vars in 983 bytes} [Sat Feb  1 07:20:39 2020] GET /MedicalSupplies/ => generated 12016 bytes in 253 msecs (HTTP/1.1 200) 6 headers in 320 bytes (1 switches on core 0)
+[pid: 32615|app: 0|req: 1/2] 223.152.205.115 () {42 vars in 895 bytes} [Sat Feb  1 07:20:46 2020] GET /admin/ => generated 4486 bytes in 229 msecs (HTTP/1.1 200) 6 headers in 227 bytes (1 switches on core 0)
+[pid: 32614|app: 0|req: 2/3] 223.152.205.115 () {44 vars in 1006 bytes} [Sat Feb  1 07:20:49 2020] GET /admin/medical_resources/medicalsupplies/ => generated 3185 bytes in 80 msecs (HTTP/1.1 200) 7 headers in 381 bytes (1 switches on core 0)
+[pid: 32614|app: 0|req: 3/4] 223.152.205.115 () {42 vars in 830 bytes} [Sat Feb  1 07:20:49 2020] GET /admin/jsi18n/ => generated 3189 bytes in 33 msecs (HTTP/1.1 200) 4 headers in 115 bytes (1 switches on core 0)
+[pid: 32614|app: 0|req: 4/5] 223.152.205.115 () {42 vars in 895 bytes} [Sat Feb  1 07:20:52 2020] GET /admin/ => generated 4486 bytes in 48 msecs (HTTP/1.1 200) 6 headers in 227 bytes (1 switches on core 0)
+[pid: 32615|app: 0|req: 2/6] 223.152.205.115 () {44 vars in 992 bytes} [Sat Feb  1 07:20:54 2020] GET /admin/medical_resources/userinfo/ => generated 27 bytes in 93 msecs (HTTP/1.1 500) 4 headers in 126 bytes (1 switches on core 0)
+[pid: 32614|app: 0|req: 5/7] 223.152.205.115 () {42 vars in 895 bytes} [Sat Feb  1 07:20:57 2020] GET /admin/ => generated 4486 bytes in 42 msecs (HTTP/1.1 200) 6 headers in 227 bytes (1 switches on core 0)
+[pid: 32614|app: 0|req: 6/8] 223.152.205.115 () {44 vars in 1014 bytes} [Sat Feb  1 07:20:59 2020] GET /admin/medical_resources/medicalsuppliestype/ => generated 4634 bytes in 59 msecs (HTTP/1.1 200) 7 headers in 381 bytes (1 switches on core 0)
+[pid: 32615|app: 0|req: 3/9] 223.152.205.115 () {42 vars in 834 bytes} [Sat Feb  1 07:20:59 2020] GET /admin/jsi18n/ => generated 3189 bytes in 32 msecs (HTTP/1.1 200) 4 headers in 115 bytes (1 switches on core 0)
+[pid: 32614|app: 0|req: 7/10] 223.152.205.115 () {42 vars in 895 bytes} [Sat Feb  1 07:21:02 2020] GET /admin/ => generated 4486 bytes in 44 msecs (HTTP/1.1 200) 6 headers in 227 bytes (1 switches on core 0)
+[pid: 32615|app: 0|req: 4/11] 223.152.205.115 () {44 vars in 992 bytes} [Sat Feb  1 07:21:05 2020] GET /admin/medical_resources/userinfo/ => generated 27 bytes in 88 msecs (HTTP/1.1 500) 4 headers in 126 bytes (1 switches on core 0)
+[pid: 32614|app: 0|req: 8/12] 223.152.205.115 () {42 vars in 895 bytes} [Sat Feb  1 07:21:09 2020] GET /admin/ => generated 4486 bytes in 47 msecs (HTTP/1.1 200) 6 headers in 227 bytes (1 switches on core 0)
+[pid: 32615|app: 0|req: 5/13] 223.152.205.115 () {44 vars in 936 bytes} [Sat Feb  1 07:21:23 2020] GET / => generated 6125 bytes in 48 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 32615|app: 0|req: 6/14] 223.152.205.115 () {40 vars in 738 bytes} [Sat Feb  1 07:28:12 2020] GET / => generated 5968 bytes in 7 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 32614|app: 0|req: 9/15] 223.152.205.115 () {42 vars in 773 bytes} [Sat Feb  1 07:28:13 2020] GET /favicon.ico => generated 85 bytes in 2 msecs (HTTP/1.1 404) 3 headers in 100 bytes (1 switches on core 0)
+[pid: 32614|app: 0|req: 10/16] 106.15.187.103 () {34 vars in 463 bytes} [Sat Feb  1 07:45:18 2020] GET / => generated 282 bytes in 3 msecs (HTTP/1.1 200) 5 headers in 150 bytes (1 switches on core 0)
+[pid: 32614|app: 0|req: 11/17] 176.104.191.120 () {32 vars in 462 bytes} [Sat Feb  1 08:10:40 2020] GET / => generated 262 bytes in 1 msecs (HTTP/1.1 200) 5 headers in 150 bytes (1 switches on core 0)
+Sat Feb  1 08:17:05 2020 - uWSGI worker 1 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Sat Feb  1 08:17:05 2020 - uWSGI worker 2 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+[uWSGI] getting INI configuration from app_server_uwsgi.ini
+open("./python_plugin.so"): No such file or directory [core/utils.c line 3724]
+!!! UNABLE to load uWSGI plugin: ./python_plugin.so: cannot open shared object file: No such file or directory !!!
+*** Starting uWSGI 2.0.18 (64bit) on [Sat Feb  1 16:22:38 2020] ***
+compiled with version: 4.8.5 20150623 (Red Hat 4.8.5-11) on 31 January 2020 06:50:07
+os: Linux-3.10.0-514.26.2.el7.x86_64 #1 SMP Tue Jul 4 15:04:05 UTC 2017
+nodename: izbp15k4ho3tbdnc71f3tvz
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 2
+current working directory: /root/code/JWB_Server_API
+detected binary path: /root/ide/anancoda3/envs/wuhan/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /root/code/JWB_Server_API
+your processes number limit is 31210
+your memory page size is 4096 bytes
+detected max file descriptor number: 65535
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:9006 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.6.10 |Anaconda, Inc.| (default, Jan  7 2020, 21:14:29)  [GCC 7.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0xdea360
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 218760 bytes (213 KB) for 2 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0xdea360 pid: 3106 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 3106)
+spawned uWSGI worker 1 (pid: 3108, cores: 1)
+spawned uWSGI worker 2 (pid: 3109, cores: 1)
+[pid: 3109|app: 0|req: 1/1] 175.9.29.245 () {42 vars in 904 bytes} [Sat Feb  1 08:23:39 2020] GET / => generated 5968 bytes in 150 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 3109|app: 0|req: 2/2] 124.23.133.9 () {42 vars in 903 bytes} [Sat Feb  1 08:26:46 2020] GET / => generated 5968 bytes in 7 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 3108|app: 0|req: 1/3] 124.23.134.135 () {42 vars in 927 bytes} [Sat Feb  1 08:26:47 2020] GET /favicon.ico => generated 85 bytes in 128 msecs (HTTP/1.1 404) 3 headers in 100 bytes (1 switches on core 0)
+[pid: 3108|app: 0|req: 2/4] 223.152.205.115 () {42 vars in 827 bytes} [Sat Feb  1 08:45:32 2020] GET / => generated 5968 bytes in 29 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 3108|app: 0|req: 3/5] 223.152.205.115 () {42 vars in 827 bytes} [Sat Feb  1 08:47:26 2020] GET / => generated 5968 bytes in 6 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 3108|app: 0|req: 4/6] 223.152.205.115 () {50 vars in 938 bytes} [Sat Feb  1 08:55:59 2020] GET / => generated 5978 bytes in 6 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 3109|app: 0|req: 3/7] 223.152.205.115 () {48 vars in 866 bytes} [Sat Feb  1 08:56:00 2020] GET /favicon.ico => generated 85 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 100 bytes (1 switches on core 0)
+[pid: 3108|app: 0|req: 5/8] 124.23.134.135 () {52 vars in 1123 bytes} [Sat Feb  1 08:56:30 2020] GET / => generated 5978 bytes in 7 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 3109|app: 0|req: 4/9] 124.23.133.9 () {52 vars in 1071 bytes} [Sat Feb  1 08:56:33 2020] GET /favicon.ico => generated 85 bytes in 1 msecs (HTTP/1.1 404) 3 headers in 100 bytes (1 switches on core 0)
+[pid: 3108|app: 0|req: 6/10] 124.23.133.9 () {52 vars in 1121 bytes} [Sat Feb  1 08:56:43 2020] GET / => generated 5978 bytes in 7 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 3108|app: 0|req: 7/11] 124.23.134.135 () {52 vars in 1123 bytes} [Sat Feb  1 08:58:16 2020] GET / => generated 5978 bytes in 6 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 3109|app: 0|req: 5/12] 119.39.248.68 () {44 vars in 1003 bytes} [Sat Feb  1 09:00:46 2020] GET / => generated 5978 bytes in 7 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 3108|app: 0|req: 8/13] 119.39.248.68 () {44 vars in 989 bytes} [Sat Feb  1 09:00:47 2020] GET /favicon.ico => generated 85 bytes in 1 msecs (HTTP/1.1 404) 3 headers in 100 bytes (1 switches on core 0)
+[pid: 3108|app: 0|req: 9/14] 119.39.248.68 () {44 vars in 1003 bytes} [Sat Feb  1 09:00:51 2020] GET / => generated 5978 bytes in 6 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 3109|app: 0|req: 6/15] 119.39.248.68 () {44 vars in 1003 bytes} [Sat Feb  1 09:01:05 2020] GET / => generated 5978 bytes in 6 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+/root/ide/anancoda3/envs/wuhan/lib/python3.6/site-packages/rest_framework/pagination.py:200: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <class 'medical_resources.models.MedicalSupplies'> QuerySet.
+  paginator = self.django_paginator_class(queryset, page_size)
+[pid: 3109|app: 0|req: 7/16] 223.152.205.115 () {52 vars in 1022 bytes} [Sat Feb  1 09:02:31 2020] GET /MedicalSupplies/ => generated 14046 bytes in 89 msecs (HTTP/1.1 200) 6 headers in 320 bytes (1 switches on core 0)
+[pid: 3109|app: 0|req: 8/17] 223.152.205.115 () {58 vars in 1138 bytes} [Sat Feb  1 09:04:52 2020] POST /MedicalSupplies/ => generated 13287 bytes in 57 msecs (HTTP/1.1 400) 6 headers in 329 bytes (1 switches on core 0)
+[pid: 3109|app: 0|req: 9/18] 223.152.205.115 () {50 vars in 1015 bytes} [Sat Feb  1 09:18:02 2020] GET /MedicalSupplies/ => generated 27 bytes in 97 msecs (HTTP/1.1 500) 4 headers in 126 bytes (1 switches on core 0)
+[pid: 3108|app: 0|req: 10/19] 223.152.205.115 () {50 vars in 956 bytes} [Sat Feb  1 09:18:04 2020] GET / => generated 5978 bytes in 7 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+/root/ide/anancoda3/envs/wuhan/lib/python3.6/site-packages/rest_framework/pagination.py:200: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <class 'medical_resources.models.MedicalSupplies'> QuerySet.
+  paginator = self.django_paginator_class(queryset, page_size)
+[pid: 3108|app: 0|req: 11/20] 223.152.205.115 () {52 vars in 1040 bytes} [Sat Feb  1 09:18:08 2020] GET /MedicalSupplies/ => generated 27 bytes in 110 msecs (HTTP/1.1 500) 4 headers in 126 bytes (1 switches on core 0)
+/root/ide/anancoda3/envs/wuhan/lib/python3.6/site-packages/rest_framework/pagination.py:200: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <class 'medical_resources.models.MedicalSuppliesType'> QuerySet.
+  paginator = self.django_paginator_class(queryset, page_size)
+[pid: 3108|app: 0|req: 12/21] 223.152.205.115 () {52 vars in 1048 bytes} [Sat Feb  1 09:18:12 2020] GET /MedicalSuppliesType/ => generated 9195 bytes in 39 msecs (HTTP/1.1 200) 6 headers in 319 bytes (1 switches on core 0)
+[pid: 3108|app: 0|req: 13/22] 223.152.205.115 () {60 vars in 1330 bytes} [Sat Feb  1 09:18:22 2020] POST /MedicalSuppliesType/ => generated 9273 bytes in 61 msecs (HTTP/1.1 400) 6 headers in 328 bytes (1 switches on core 0)
+[pid: 3109|app: 0|req: 10/23] 223.152.205.115 () {60 vars in 1330 bytes} [Sat Feb  1 09:19:53 2020] POST /MedicalSuppliesType/ => generated 9273 bytes in 38 msecs (HTTP/1.1 400) 6 headers in 328 bytes (1 switches on core 0)
+[pid: 3109|app: 0|req: 11/24] 223.152.205.115 () {60 vars in 1330 bytes} [Sat Feb  1 09:20:00 2020] POST /MedicalSuppliesType/ => generated 9174 bytes in 58 msecs (HTTP/1.1 201) 6 headers in 324 bytes (1 switches on core 0)
+[pid: 3108|app: 0|req: 14/25] 223.152.205.115 () {60 vars in 1330 bytes} [Sat Feb  1 09:20:07 2020] POST /MedicalSuppliesType/ => generated 9180 bytes in 63 msecs (HTTP/1.1 201) 6 headers in 324 bytes (1 switches on core 0)
+[pid: 3108|app: 0|req: 15/26] 223.152.205.115 () {52 vars in 1069 bytes} [Sat Feb  1 09:20:14 2020] GET /MedicalSuppliesType/ => generated 27 bytes in 83 msecs (HTTP/1.1 500) 4 headers in 126 bytes (1 switches on core 0)
+Sat Feb  1 09:21:00 2020 - uWSGI worker 1 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Sat Feb  1 09:21:00 2020 - uWSGI worker 2 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+[uWSGI] getting INI configuration from app_server_uwsgi.ini
+open("./python_plugin.so"): No such file or directory [core/utils.c line 3724]
+!!! UNABLE to load uWSGI plugin: ./python_plugin.so: cannot open shared object file: No such file or directory !!!
+*** Starting uWSGI 2.0.18 (64bit) on [Sat Feb  1 17:39:45 2020] ***
+compiled with version: 4.8.5 20150623 (Red Hat 4.8.5-11) on 31 January 2020 06:50:07
+os: Linux-3.10.0-514.26.2.el7.x86_64 #1 SMP Tue Jul 4 15:04:05 UTC 2017
+nodename: izbp15k4ho3tbdnc71f3tvz
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 2
+current working directory: /root/code/JWB_Server_API
+detected binary path: /root/ide/anancoda3/envs/wuhan/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /root/code/JWB_Server_API
+your processes number limit is 31210
+your memory page size is 4096 bytes
+detected max file descriptor number: 65535
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:9006 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.6.10 |Anaconda, Inc.| (default, Jan  7 2020, 21:14:29)  [GCC 7.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x15c5360
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 218760 bytes (213 KB) for 2 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x15c5360 pid: 3590 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 3590)
+spawned uWSGI worker 1 (pid: 3592, cores: 1)
+spawned uWSGI worker 2 (pid: 3593, cores: 1)
+[pid: 3593|app: 0|req: 1/1] 101.132.37.16 () {36 vars in 486 bytes} [Sat Feb  1 09:40:25 2020] GET / => generated 287 bytes in 123 msecs (HTTP/1.1 200) 5 headers in 150 bytes (1 switches on core 0)
+[pid: 3592|app: 0|req: 1/2] 83.97.20.181 () {36 vars in 499 bytes} [Sat Feb  1 09:48:57 2020] GET /vpn/../vpns/rage-against-the-dying-of-the-light => generated 114 bytes in 131 msecs (HTTP/1.1 404) 3 headers in 101 bytes (1 switches on core 0)
+[pid: 3593|app: 0|req: 2/3] 124.23.134.135 () {50 vars in 1092 bytes} [Sat Feb  1 11:05:28 2020] GET / => generated 5978 bytes in 28 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 3592|app: 0|req: 2/4] 124.23.134.135 () {52 vars in 1167 bytes} [Sat Feb  1 11:05:35 2020] GET /?format=json => generated 347 bytes in 17 msecs (HTTP/1.1 200) 5 headers in 150 bytes (1 switches on core 0)
+[pid: 3592|app: 0|req: 3/5] 124.23.134.135 () {52 vars in 1165 bytes} [Sat Feb  1 11:05:39 2020] GET /?format=api => generated 6132 bytes in 27 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 3592|app: 0|req: 4/6] 113.73.111.135 () {44 vars in 1004 bytes} [Sat Feb  1 11:27:09 2020] GET / => generated 5978 bytes in 6 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 3592|app: 0|req: 5/7] 223.152.205.115 () {52 vars in 981 bytes} [Sat Feb  1 11:35:18 2020] GET / => generated 5908 bytes in 6 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 3593|app: 0|req: 3/8] 223.152.205.115 () {52 vars in 924 bytes} [Sat Feb  1 11:35:19 2020] GET /favicon.ico => generated 85 bytes in 2 msecs (HTTP/1.1 404) 3 headers in 100 bytes (1 switches on core 0)
+[pid: 3593|app: 0|req: 4/9] 223.152.205.115 () {50 vars in 957 bytes} [Sat Feb  1 11:35:32 2020] GET / => generated 5978 bytes in 7 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 3592|app: 0|req: 6/10] 223.152.205.115 () {48 vars in 885 bytes} [Sat Feb  1 11:35:32 2020] GET /favicon.ico => generated 85 bytes in 2 msecs (HTTP/1.1 404) 3 headers in 100 bytes (1 switches on core 0)
+[pid: 3593|app: 0|req: 5/11] 58.251.121.185 () {40 vars in 652 bytes} [Sat Feb  1 11:35:39 2020] GET / => generated 287 bytes in 2 msecs (HTTP/1.1 200) 5 headers in 150 bytes (1 switches on core 0)
+[pid: 3592|app: 0|req: 7/12] 59.36.129.24 () {36 vars in 420 bytes} [Sat Feb  1 11:35:40 2020] GET / => generated 287 bytes in 2 msecs (HTTP/1.1 200) 5 headers in 150 bytes (1 switches on core 0)
+Sat Feb  1 11:35:56 2020 - uWSGI worker 1 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+Sat Feb  1 11:35:56 2020 - uWSGI worker 2 screams: UAAAAAAH my master disconnected: i will kill myself !!!
+[uWSGI] getting INI configuration from app_server_uwsgi.ini
+open("./python_plugin.so"): No such file or directory [core/utils.c line 3724]
+!!! UNABLE to load uWSGI plugin: ./python_plugin.so: cannot open shared object file: No such file or directory !!!
+*** Starting uWSGI 2.0.18 (64bit) on [Sat Feb  1 19:37:31 2020] ***
+compiled with version: 4.8.5 20150623 (Red Hat 4.8.5-11) on 31 January 2020 06:50:07
+os: Linux-3.10.0-514.26.2.el7.x86_64 #1 SMP Tue Jul 4 15:04:05 UTC 2017
+nodename: izbp15k4ho3tbdnc71f3tvz
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 2
+current working directory: /root/code/JWB_Server_API
+detected binary path: /root/ide/anancoda3/envs/wuhan/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /root/code/JWB_Server_API
+your processes number limit is 31210
+your memory page size is 4096 bytes
+detected max file descriptor number: 65535
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:9006 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.6.10 |Anaconda, Inc.| (default, Jan  7 2020, 21:14:29)  [GCC 7.3.0]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x13e0470
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 218760 bytes (213 KB) for 2 cores
+*** Operational MODE: preforking ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x13e0470 pid: 4487 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 4487)
+spawned uWSGI worker 1 (pid: 4489, cores: 1)
+spawned uWSGI worker 2 (pid: 4490, cores: 1)
+[pid: 4489|app: 0|req: 1/1] 124.23.134.135 () {42 vars in 914 bytes} [Sat Feb  1 11:38:03 2020] GET /?mType=Group => generated 6046 bytes in 153 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+/root/ide/anancoda3/envs/wuhan/lib/python3.6/site-packages/rest_framework/pagination.py:200: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <class 'medical_resources.models.MedicalSupplies'> QuerySet.
+  paginator = self.django_paginator_class(queryset, page_size)
+[pid: 4489|app: 0|req: 2/2] 223.152.205.115 () {52 vars in 1041 bytes} [Sat Feb  1 11:39:22 2020] GET /MedicalSupplies/ => generated 13852 bytes in 88 msecs (HTTP/1.1 200) 6 headers in 320 bytes (1 switches on core 0)
+[pid: 4490|app: 0|req: 1/3] 223.152.205.115 () {52 vars in 1025 bytes} [Sat Feb  1 11:40:05 2020] GET / => generated 5978 bytes in 140 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+/root/ide/anancoda3/envs/wuhan/lib/python3.6/site-packages/rest_framework/pagination.py:200: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <class 'medical_resources.models.MedicalSuppliesType'> QuerySet.
+  paginator = self.django_paginator_class(queryset, page_size)
+[pid: 4489|app: 0|req: 3/4] 223.152.205.115 () {52 vars in 1049 bytes} [Sat Feb  1 11:40:08 2020] GET /MedicalSuppliesType/ => generated 9243 bytes in 39 msecs (HTTP/1.1 200) 6 headers in 319 bytes (1 switches on core 0)
+[pid: 4490|app: 0|req: 2/5] 223.152.205.115 () {52 vars in 1029 bytes} [Sat Feb  1 11:47:02 2020] GET / => generated 5978 bytes in 6 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+/root/ide/anancoda3/envs/wuhan/lib/python3.6/site-packages/rest_framework/pagination.py:200: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <class 'medical_resources.models.MedicalSupplies'> QuerySet.
+  paginator = self.django_paginator_class(queryset, page_size)
+[pid: 4490|app: 0|req: 3/6] 223.152.205.115 () {52 vars in 1041 bytes} [Sat Feb  1 11:47:04 2020] GET /MedicalSupplies/ => generated 13852 bytes in 90 msecs (HTTP/1.1 200) 6 headers in 320 bytes (1 switches on core 0)
+[pid: 4490|app: 0|req: 4/7] 223.152.205.115 () {52 vars in 1025 bytes} [Sat Feb  1 11:47:54 2020] GET / => generated 5978 bytes in 6 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 4489|app: 0|req: 4/8] 223.152.205.115 () {54 vars in 1045 bytes} [Sat Feb  1 11:47:57 2020] OPTIONS / => generated 5613 bytes in 5 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 4489|app: 0|req: 5/9] 223.152.205.115 () {54 vars in 1045 bytes} [Sat Feb  1 11:48:03 2020] OPTIONS / => generated 5613 bytes in 6 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 4489|app: 0|req: 6/10] 223.152.205.115 () {54 vars in 1045 bytes} [Sat Feb  1 11:48:04 2020] OPTIONS / => generated 5613 bytes in 6 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 4490|app: 0|req: 5/11] 223.152.205.115 () {52 vars in 1009 bytes} [Sat Feb  1 11:48:05 2020] GET / => generated 5978 bytes in 6 msecs (HTTP/1.1 200) 6 headers in 313 bytes (1 switches on core 0)
+[pid: 4489|app: 0|req: 7/12] 223.152.205.115 () {52 vars in 1032 bytes} [Sat Feb  1 11:48:08 2020] GET /?format=json => generated 347 bytes in 2 msecs (HTTP/1.1 200) 5 headers in 150 bytes (1 switches on core 0)
+/root/ide/anancoda3/envs/wuhan/lib/python3.6/site-packages/rest_framework/pagination.py:200: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <class 'medical_resources.models.UserInfo'> QuerySet.
+  paginator = self.django_paginator_class(queryset, page_size)
+[pid: 4490|app: 0|req: 6/13] 223.152.205.115 () {52 vars in 1027 bytes} [Sat Feb  1 11:48:14 2020] GET /UserInfo/ => generated 9540 bytes in 41 msecs (HTTP/1.1 200) 6 headers in 319 bytes (1 switches on core 0)
+/root/ide/anancoda3/envs/wuhan/lib/python3.6/site-packages/rest_framework/pagination.py:200: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <class 'medical_resources.models.UserInfo'> QuerySet.
+  paginator = self.django_paginator_class(queryset, page_size)
+[pid: 4489|app: 0|req: 8/14] 223.152.205.115 () {52 vars in 1057 bytes} [Sat Feb  1 11:48:20 2020] GET /UserInfo/?format=api => generated 9617 bytes in 44 msecs (HTTP/1.1 200) 6 headers in 319 bytes (1 switches on core 0)
