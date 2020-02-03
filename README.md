@@ -18,8 +18,6 @@ conda activate wuhan
 
 
 
-
-
 ## 3.1 前台运行命令
 ```
 uwsgi --ini app_server_uwsgi.ini 
@@ -33,6 +31,36 @@ nohup uwsgi --ini app_server_uwsgi.ini &
 ```
 http://121.43.233.66/
 ```
+
+----
+
+
+## 表结构信息
+https://docs.qq.com/sheet/DWFZXeEdobkFWT3lK?tab=BB08J2&c=D54A0A0
+
+## 会议纪要
+https://docs.qq.com/doc/DWHdSUWdOZWZCbm9E
+
+# 分工
+1. 注册 - 廖文
++ 判断是否有userid ,没有则存，有则跳过
+
+2. 发布 - 李硕 
++ 供应表 外键->物品表
++ 物品表加一个type 口罩 消毒液
+
+
+3. 首页状态 -罗杰
++ 经纬度 大于小于
++ 热门  5km+ 随机10条（供求表）
++ 最新  5km + 时间（供求表）
++ 我的  自己的提交信息（供求表）
+
+4. 搜索-供应表
++ 商店  -  供求表+用户表 廖文
++ 消毒液 - 供求表+新加的物品表  罗杰
++ 口罩  - 供求表+新加的物品表  李硕
+
 
 ----
 
