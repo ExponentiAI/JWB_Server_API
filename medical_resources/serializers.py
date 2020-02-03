@@ -23,34 +23,22 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 
-class UserInfoSerializer(serializers.HyperlinkedModelSerializer):   #user序列化器
+class UserInfoSerializer(serializers.HyperlinkedModelSerializer):  # user序列化器
     class Meta:
         model = UserInfo
         fields = '__all__'
 
-class SupAndDemSerializer(serializers.ModelSerializer):   #供求序列化器
-    u_id =  UserInfoSerializer()
+
+class SupAndDemSerializer(serializers.ModelSerializer):  # 供求序列化器
+    u_id = UserInfoSerializer()
+
     class Meta:
         model = SupAndDem
         fields = '__all__'
+
 
 class MaterialSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Material
         fields = '__all__'
 
-
-
-
-
-
-
-# class MedicalSuppliesTypeSerializer(serializers.HyperlinkedModelSerializer):
-#     class Meta:
-#         model = MedicalSuppliesType
-#         fields = '__all__'
-#
-# class MedicalSuppliesSerializer(serializers.HyperlinkedModelSerializer):
-#     class Meta:
-#         model = MedicalSupplies
-#         fields = '__all__'
