@@ -19,21 +19,16 @@ from medical_resources import views
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 
-router = routers.DefaultRouter()
-# router.register(r'users', views.UserViewSet)
-# router.register(r'groups', views.GroupViewSet)
-router.register(r'Authentication', views.UserInfoViewSet)
-router.register(r'MedicalSupplies', views.SupAndDemViewSet)
-# router.register(r'Material', views.MaterialViewSet)
-# router.register(r'MedicalSupplies', views.MedicalSuppliesViewSet)
-# router.register(r'MedicalSuppliesType', views.MedicalSuppliesTypeViewSet)
-router.register('SearchResult', views.SearchResultViewSet, basename='codes')
+# router = routers.DefaultRouter()
+# router.register(r'Authentication', views.UserInfoViewSet)
 
 # 使用自动URL路由连接我们的API。
 # 另外，我们还包括支持浏览器浏览API的登录URL。
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    # url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework111')),
-    url(r'^wuhan/', include('medical_resources.urls')),
+
+    # 提交需求和供应
+    url(r'^SupAndDem/$', views.SupAndDem,name="SupAndDem"),
 ]
