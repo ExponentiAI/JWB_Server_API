@@ -42,3 +42,9 @@ class MaterialSerializer(serializers.HyperlinkedModelSerializer):
         model = Material
         fields = '__all__'
 
+
+class SupAndDemModelSerializer(serializers.ModelSerializer):
+    # 首页展示serializer
+    class Meta:
+        model = SupAndDem
+        fields = ('lon', 'lat', 'address', 'city')

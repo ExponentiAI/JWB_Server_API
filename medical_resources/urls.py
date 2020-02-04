@@ -8,6 +8,7 @@
 
 from django.conf.urls import url, include
 from rest_framework import routers
+from medical_resources import views
 
 router = routers.DefaultRouter()
 
@@ -15,6 +16,8 @@ router = routers.DefaultRouter()
 # 另外，我们还包括支持浏览器浏览API的登录URL。
 urlpatterns = [
     # url(r'^UserInfo/', include(views.UserInfoViewSet)),
-    # url(r'^get_MedicalSupplies_item/', include(views.MedicalSuppliesViewSet)),
+    url(r'^hot/$', views.get_hot_info),
+    url(r'^new/$', views.get_new_info),
+    url(r'^me/$', views.get_me_info),
     url(r'^api-UserInfo/', include('rest_framework.urls', namespace='rest_framework'))
 ]
