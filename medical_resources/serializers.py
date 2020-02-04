@@ -29,11 +29,11 @@ class UserInfoSerializer(serializers.HyperlinkedModelSerializer):  # user序列�
         fields = '__all__'
 
 
-class SupAndDemSerializer(serializers.ModelSerializer):  # 供求序列化器
+class DemandSerializer(serializers.ModelSerializer):  # 供求序列化器
     u_id = UserInfoSerializer()
 
     class Meta:
-        model = SupAndDem
+        model = Demand
         fields = '__all__'
 
 
