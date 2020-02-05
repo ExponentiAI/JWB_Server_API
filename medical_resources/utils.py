@@ -12,4 +12,4 @@ def get_lat_lon_range(lat, lon, km):
     # 纬度1度是111KM,1分是1.85KM
     """
     angle = km / 111
-    return lat + angle, lon + angle, lat - angle, lon + angle
+    return lat + angle, lon + angle, lat - angle, lon - angle

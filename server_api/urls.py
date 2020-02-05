@@ -28,7 +28,9 @@ urlpatterns = [
     # url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework111')),
-
+    # url(r'^hot/$', views.get_hot_info),
+    url(r'^new/$', views.get_new_info),
+    url(r'^me/$', views.get_me_info),
     # 提交需求和供应
-    url(r'^SupAndDem/$', views.SupAndDem,name="SupAndDem"),
+    url(r'^SupAndDem/$', views.SupAndDem, name="SupAndDem"),
 ]

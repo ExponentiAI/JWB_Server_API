@@ -39,17 +39,20 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
-
 class UserInfoViewSet(viewsets.ModelViewSet):
     queryset = UserInfo.objects.all()
     serializer_class = UserInfoSerializer
+
+
 import ast
-#提交供应和需求信息
+
+
+# 提交供应和需求信息
 def SupAndDem(request):
-    if  request.method == 'POST':
+    if request.method == 'POST':
         afferent_data = request.POST
         demand = Demand.objects.create(
-            u_id=UserInfo.objects.get(open_id = afferent_data['u_id']),
+            u_id=UserInfo.objects.get(open_id=afferent_data['u_id']),
             s_lon=afferent_data['lon'],
             s_lat=afferent_data['lat'],
             s_nation=afferent_data['nation'],
@@ -68,14 +71,12 @@ def SupAndDem(request):
         goods_arr = ast.literal_eval(afferent_data['goods'])
         for i in goods_arr:
             Material.objects.create(
-                m_id = demand,
-                type = i,
-                goods_name = goods_arr[i]['goods_name'],
-                count = goods_arr[i]['num_or_price']
+                m_id=demand,
+                type=i,
+                goods_name=goods_arr[i]['goods_name'],
+                count=goods_arr[i]['num_or_price']
             )
-        return JsonResponse({"msg": "操作成功！"},status=status.HTTP_201_CREATED)
-
-
+        return JsonResponse({"msg": "操作成功！"}, status=status.HTTP_201_CREATED)
 
         # if demand_exists:
         #     return JsonResponse({"msg": "操作成功！"})
@@ -92,42 +93,25 @@ def SupAndDem(request):
 #     serializer_class = SupAndDemSerializer
 
 
-
-        # UserInfo.objects.create(
-        #          open_id = 1,
-        #          u_type = 1,
-        #          nick_name = 'sds',
-        #          avatar_url='sssss',
-        #          gender='sds',
-        #          store_name='sds',
-        #          m_longitude=123213,
-        #          m_latitude=45454,
-        #          nation='sds',
-        #          city='sds',
-        #          province='sds',
-        #          district='sds',
-        #          street='sds',
-        #          street_number='sds'
-        #
-        #      )
+# UserInfo.objects.create(
+#          open_id = 1,
+#          u_type = 1,
+#          nick_name = 'sds',
+#          avatar_url='sssss',
+#          gender='sds',
+#          store_name='sds',
+#          m_longitude=123213,
+#          m_latitude=45454,
+#          nation='sds',
+#          city='sds',
+#          province='sds',
+#          district='sds',
+#          street='sds',
+#          street_number='sds'
+#
+#      )
 
 # 纬度1度是111KM,1分是1.85KM
-@csrf_exempt
-def get_hot_info(request):
-    if request.method == 'POST':
-        # 解析post数据
-        data = JSONParser().parse(request)
-        longitude = float(data['longitude'])
-        latitude = float(data['latitude'])
-        km = float(data['km'])
-        items_count = int(data['items_count'])
-        max_lat, max_lot, min_lat, min_lot = get_lat_lon_range(latitude, longitude, km)
-        # id__gte=724 >=724  ; id__lte=724 <=724
-        queryset = SupAndDem.objects.filter(lat__lte=max_lat, lot__lte=max_lot,
-                                            lat__gte=min_lat, lot__gte=min_lot).order_by('time')[:items_count]
-        serializer = SupAndDemModelSerializer(queryset, many=True)
-        return JSONResponse(serializer.data)
-
 
 @csrf_exempt
 def get_new_info(request):
@@ -137,12 +121,12 @@ def get_new_info(request):
         longitude = float(data['longitude'])
         latitude = float(data['latitude'])
         km = float(data['km'])
-        items_count = int(data['items_count'])
+        items_count = int(data['count'])
         max_lat, max_lot, min_lat, min_lot = get_lat_lon_range(latitude, longitude, km)
         # id__gte=724 >=724  ; id__lte=724 <=724
-        queryset = SupAndDem.objects.filter(lat__lte=max_lat, lot__lte=max_lot,
-                                            lat__gte=min_lat, lot__gte=min_lot).order_by('time')[:items_count]
-        serializer = SupAndDemModelSerializer(queryset, many=True)
+        queryset = Demand.objects.filter(s_lat__lte=max_lat, s_lon__lte=max_lot,
+                                         s_lat__gte=min_lat, s_lon__gte=min_lot).order_by('s_subtime')[:items_count]
+        serializer = DemandDataSerializer(queryset, many=True)
         return JSONResponse(serializer.data)
     else:
         pass
@@ -155,8 +139,8 @@ def get_me_info(request):
         data = JSONParser().parse(request)
         u_id = str(data['u_id'])
         items_count = int(data['items_count'])
-        queryset = SupAndDem.objects.filter(u_id=u_id).order_by('time')[:items_count]
-        serializer = SupAndDemModelSerializer(queryset, many=True)
+        queryset = Demand.objects.filter(u_id=u_id).order_by('time')[:items_count]
+        serializer = DemandSerializer(queryset, many=True)
         return JSONResponse(serializer.data)
     else:
         pass

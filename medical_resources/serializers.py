@@ -43,8 +43,10 @@ class MaterialSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 
-class SupAndDemModelSerializer(serializers.ModelSerializer):
+class DemandDataSerializer(serializers.ModelSerializer):
     # 首页展示serializer
     class Meta:
-        model = SupAndDem
-        fields = ('lon', 'lat', 'address', 'city')
+        model = Demand
+        fields = ('s_lon', 's_lat', 's_nation', 's_city', 's_province', \
+                  's_street', 's_street_number', 's_content', 's_type', \
+                  's_range', 's_aging', 's_subtime')
