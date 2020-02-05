@@ -18,6 +18,44 @@ class JSONResponse(HttpResponse):
 class UserInfoViewSet(viewsets.ModelViewSet):
     queryset = UserInfo.objects.all()
     serializer_class = UserInfoSerializer
+
+#用户注册
+def UserRegister(request):
+    if request.method == 'POST':
+        allData = json.loads(str(request.body,'utf-8'))
+
+        # userInfo, created = UserInfo.objects.get_or_create(open_id=111)
+        # if created == False:    #没创建新对象，表示该已注册过
+        #     print("oldRegis--%s" % userInfo)
+        #     return JsonResponse({"msg": "UserRegistered"}, status=status.HTTP_201_CREATED)
+        # elif created == True:
+        #     UserInfo.objects.filter(open_id=allData['open_id']).update(**allData)
+        #     print("newRegis--%s" % userInfo)
+        #     return JsonResponse({"msg": "NewUserRegisterSuccess！"}, status=status.HTTP_201_CREATED)
+
+        try:     #已注册
+            userInfo = UserInfo.objects.get(open_id = allData['open_id'])
+            print("oldRegis--%s" % userInfo)
+            return JsonResponse({"msg": "UserRegistered"},status=status.HTTP_201_CREATED)
+        except UserInfo.DoesNotExist:    #未注册
+                UserInfo.objects.create (
+                u_type = allData['u_type'],
+                open_id=allData['open_id'],
+                nick_name=allData['nick_name'],
+                avatar_url=allData['avatar_url'],
+                gender=allData['gender'],
+                store_name=allData['store_name'],
+                m_longitude=allData['m_longitude'],
+                m_latitude=allData['m_latitude'],
+                nation=allData['nation'],
+                city=allData['city'],
+                province=allData['province'],
+                district=allData['district'],
+                street=allData['street'],
+                street_number=allData['street_number']
+            )
+        print('NewUserRegisterSuccess')
+        return JsonResponse({"msg": "NewUserRegisterSuccess"}, status=status.HTTP_201_CREATED)
 import ast
 #提交供应和需求信息
 def SupAndDem(request):
