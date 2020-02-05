@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 import json
 from rest_framework import viewsets
@@ -114,33 +115,69 @@ def SupAndDem(request):
 # 纬度1度是111KM,1分是1.85KM
 
 @csrf_exempt
-def get_new_info(request):
+def get_new_info(request, pindex):
     if request.method == 'POST':
+        if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
+            pindex = 1
+        else:  # 如果有返回在值，把返回值转为整数型
+            pindex = int(pindex)
+
         # 解析post数据
         data = JSONParser().parse(request)
         longitude = float(data['longitude'])
         latitude = float(data['latitude'])
-        km = float(data['km'])
-        items_count = int(data['count'])
+        km = float(data['search_range'])
+        page_items_count = int(data['page_items_count'])
         max_lat, max_lot, min_lat, min_lot = get_lat_lon_range(latitude, longitude, km)
+
         # id__gte=724 >=724  ; id__lte=724 <=724
         queryset = Demand.objects.filter(s_lat__lte=max_lat, s_lon__lte=max_lot,
-                                         s_lat__gte=min_lat, s_lon__gte=min_lot).order_by('s_subtime')[:items_count]
-        serializer = DemandDataSerializer(queryset, many=True)
+                                         s_lat__gte=min_lat, s_lon__gte=min_lot).order_by('s_subtime')
+
+        paginator = Paginator(queryset, page_items_count)  # 实例化Paginator, 每页显示page_items_count条数据
+
+        page = paginator.page(1) if pindex > int(paginator.num_pages) else paginator.page(pindex)
+
+        serializer = DemandDataSerializer(page, many=True)
         return JSONResponse(serializer.data)
     else:
         pass
 
 
 @csrf_exempt
-def get_me_info(request):
+def res_details(request):
     if request.method == 'POST':
         # 解析post数据
         data = JSONParser().parse(request)
         u_id = str(data['u_id'])
-        items_count = int(data['items_count'])
-        queryset = Demand.objects.filter(u_id=u_id).order_by('time')[:items_count]
-        serializer = DemandSerializer(queryset, many=True)
+        queryset = Material.objects.filter(m_id=u_id).order_by('type')
+        serializer = MaterialDataSerializer(queryset, many=True)
+        return JSONResponse(serializer.data)
+    else:
+        pass
+
+
+@csrf_exempt
+def get_me_info(request, pindex):
+    if request.method == 'POST':
+
+        if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
+            pindex = 1
+        else:  # 如果有返回在值，把返回值转为整数型
+            pindex = int(pindex)
+
+        # 解析post数据
+        data = JSONParser().parse(request)
+        u_id = str(data['u_id'])
+        page_items_count = int(data['page_items_count'])
+
+        queryset = Demand.objects.filter(u_id=u_id).order_by('s_subtime')
+
+        paginator = Paginator(queryset, page_items_count)  # 实例化Paginator, 每页显示page_items_count条数据
+
+        page = paginator.page(1) if pindex > int(paginator.num_pages) else paginator.page(pindex)
+
+        serializer = DemandDataSerializer(page, many=True)
         return JSONResponse(serializer.data)
     else:
         pass

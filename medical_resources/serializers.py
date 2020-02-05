@@ -9,6 +9,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from medical_resources.models import *
+from rest_framework.request import Request
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -44,9 +45,17 @@ class MaterialSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class DemandDataSerializer(serializers.ModelSerializer):
-    # 首页展示serializer
+    Material_set = serializers.StringRelatedField(many=True)
+
     class Meta:
         model = Demand
-        fields = ('s_lon', 's_lat', 's_nation', 's_city', 's_province', \
+        fields = ('u_id', 'Material_set', 's_lon', 's_lat', 's_nation', 's_city', 's_province', \
                   's_street', 's_street_number', 's_content', 's_type', \
                   's_range', 's_aging', 's_subtime')
+
+
+class MaterialDataSerializer(serializers.ModelSerializer):
+    # 首页展示serializer
+    class Meta:
+        model = Material
+        fields = ('m_id', 'type', 'count', 'goods_name')
