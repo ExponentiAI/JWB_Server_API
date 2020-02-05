@@ -136,7 +136,6 @@ def get_new_info(request, pindex):
         # id__gte=724 >=724  ; id__lte=724 <=724
         queryset = Demand.objects.filter(s_lat__lte=max_lat, s_lon__lte=max_lot,
                                          s_lat__gte=min_lat, s_lon__gte=min_lot).order_by('s_subtime')
-        material_set = Material.objects.filter(queryset)
         paginator = Paginator(queryset, page_items_count)  # 实例化Paginator, 每页显示page_items_count条数据
 
         page = paginator.page(1) if pindex > int(paginator.num_pages) else paginator.page(pindex)
