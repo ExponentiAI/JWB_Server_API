@@ -43,7 +43,7 @@ class Demand(models.Model):  # 供求表
     s_type = models.IntegerField(verbose_name='供需类别', default="")  # 0为需求，1为供应
     s_range = models.IntegerField(verbose_name='位置范围', default="")
     s_aging = models.IntegerField(verbose_name='发布时效', default="")
-    s_subtime = models.IntegerField( verbose_name='时间', default="")
+    s_subtime = models.CharField(max_length=300,verbose_name='时间', default="")
 
 class Material(models.Model):  # 供应物资表
     class Meta:
