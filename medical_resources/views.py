@@ -1,4 +1,3 @@
-from django.core.paginator import Paginator
 from django.shortcuts import render
 import json
 from rest_framework import viewsets
@@ -10,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.http import JsonResponse
 from medical_resources.models import *
+from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
@@ -31,29 +31,24 @@ class JSONResponse(HttpResponse):
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
 
-
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    允许用户查看或编辑的API路径。
-    """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-
-
 class UserInfoViewSet(viewsets.ModelViewSet):
     queryset = UserInfo.objects.all()
     serializer_class = UserInfoSerializer
 
 
 import ast
-
-
-# 提交供应和需求信息
+#提交供应和需求信息
+@csrf_exempt
 def SupAndDem(request):
-    if request.method == 'POST':
+    print('if外层')
+    if  request.method == 'POST':
+        print('if内层')
         afferent_data = request.POST
+        print('开始存储')
+        print(afferent_data['u_id'])
+        print(request.POST)
         demand = Demand.objects.create(
-            u_id=UserInfo.objects.get(open_id=afferent_data['u_id']),
+            u_id=UserInfo.objects.get(open_id = afferent_data['u_id']),
             s_lon=afferent_data['lon'],
             s_lat=afferent_data['lat'],
             s_nation=afferent_data['nation'],
@@ -68,16 +63,22 @@ def SupAndDem(request):
             s_aging=afferent_data['aging'],
             s_subtime=afferent_data['subtime']
         )
-
+        print('demand存储结束')
         goods_arr = ast.literal_eval(afferent_data['goods'])
-        for i in goods_arr:
+        print(afferent_data['goods'])
+        print(type(goods_arr))
+        print('开始for')
+        for index,value in enumerate(goods_arr):
+            print(index,value,)
             Material.objects.create(
-                m_id=demand,
-                type=i,
-                goods_name=goods_arr[i]['goods_name'],
-                count=goods_arr[i]['num_or_price']
+                m_id = demand,
+                type = index,
+                goods_name = goods_arr[index]['goods_name'],
+                count = goods_arr[index]['num_or_price']
             )
-        return JsonResponse({"msg": "操作成功！"}, status=status.HTTP_201_CREATED)
+        return JsonResponse({"msg": "操作成功！"},status=status.HTTP_201_CREATED)
+
+
 
         # if demand_exists:
         #     return JsonResponse({"msg": "操作成功！"})

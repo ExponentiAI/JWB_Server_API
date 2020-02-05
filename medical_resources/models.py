@@ -26,6 +26,8 @@ class UserInfo(models.Model):
     street_number = models.CharField(max_length=100, verbose_name='街道门牌号', default="")
 
 
+
+
 class Demand(models.Model):  # 供求表
     u_id = models.ForeignKey(UserInfo, on_delete=models.CASCADE, verbose_name='userid', related_name='u_id',
                              default="")
@@ -41,15 +43,13 @@ class Demand(models.Model):  # 供求表
     s_type = models.IntegerField(verbose_name='供需类别', default="")  # 0为需求，1为供应
     s_range = models.IntegerField(verbose_name='位置范围', default="")
     s_aging = models.IntegerField(verbose_name='发布时效', default="")
-    s_subtime = models.IntegerField(verbose_name='时间', default="")
-
+    s_subtime = models.CharField(max_length=300,verbose_name='时间', default="")
 
 class Material(models.Model):  # 供应物资表
     class Meta:
         verbose_name = 'Material Data'
         verbose_name_plural = 'Material Data'
-
-    m_id = models.ForeignKey(Demand, on_delete=models.CASCADE, verbose_name='供需id', related_name='m_id',
+    m_id =  models.ForeignKey(Demand, on_delete=models.CASCADE, verbose_name='供需id', related_name='m_id',
                              default="")
     type = models.IntegerField(verbose_name='物资类别', default="")  #
     count = models.IntegerField(verbose_name='数量', default='')

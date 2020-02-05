@@ -25,7 +25,9 @@ SECRET_KEY = '(yq5b9a71*s(+0jba$n^l#-r&40-o0o7d5p#*x0)--g)6(c7m='
 DEBUG = True
 
 ALLOWED_HOSTS = ['*', ]
-# Application definition
+# Application
+
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -47,6 +49,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+
 
 ROOT_URLCONF = 'server_api.urls'
 
