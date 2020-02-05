@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 import json
 from rest_framework import viewsets
@@ -31,24 +32,27 @@ class JSONResponse(HttpResponse):
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
 
+
 class UserInfoViewSet(viewsets.ModelViewSet):
     queryset = UserInfo.objects.all()
     serializer_class = UserInfoSerializer
 
 
 import ast
-#提交供应和需求信息
+
+
+# 提交供应和需求信息
 @csrf_exempt
 def SupAndDem(request):
     print('if外层')
-    if  request.method == 'POST':
+    if request.method == 'POST':
         print('if内层')
         afferent_data = request.POST
         print('开始存储')
         print(afferent_data['u_id'])
         print(request.POST)
         demand = Demand.objects.create(
-            u_id=UserInfo.objects.get(open_id = afferent_data['u_id']),
+            u_id=UserInfo.objects.get(open_id=afferent_data['u_id']),
             s_lon=afferent_data['lon'],
             s_lat=afferent_data['lat'],
             s_nation=afferent_data['nation'],
@@ -68,17 +72,15 @@ def SupAndDem(request):
         print(afferent_data['goods'])
         print(type(goods_arr))
         print('开始for')
-        for index,value in enumerate(goods_arr):
-            print(index,value,)
+        for index, value in enumerate(goods_arr):
+            print(index, value, )
             Material.objects.create(
-                m_id = demand,
-                type = index,
-                goods_name = goods_arr[index]['goods_name'],
-                count = goods_arr[index]['num_or_price']
+                m_id=demand,
+                type=index,
+                goods_name=goods_arr[index]['goods_name'],
+                count=goods_arr[index]['num_or_price']
             )
-        return JsonResponse({"msg": "操作成功！"},status=status.HTTP_201_CREATED)
-
-
+        return JsonResponse({"msg": "操作成功！"}, status=status.HTTP_201_CREATED)
 
         # if demand_exists:
         #     return JsonResponse({"msg": "操作成功！"})
@@ -134,7 +136,7 @@ def get_new_info(request, pindex):
         # id__gte=724 >=724  ; id__lte=724 <=724
         queryset = Demand.objects.filter(s_lat__lte=max_lat, s_lon__lte=max_lot,
                                          s_lat__gte=min_lat, s_lon__gte=min_lot).order_by('s_subtime')
-
+        material_set = Material.objects.filter(queryset)
         paginator = Paginator(queryset, page_items_count)  # 实例化Paginator, 每页显示page_items_count条数据
 
         page = paginator.page(1) if pindex > int(paginator.num_pages) else paginator.page(pindex)
@@ -150,7 +152,7 @@ def res_details(request):
     if request.method == 'POST':
         # 解析post数据
         data = JSONParser().parse(request)
-        u_id = str(data['u_id'])
+        u_id = str(data['m_id'])
         queryset = Material.objects.filter(m_id=u_id).order_by('type')
         serializer = MaterialDataSerializer(queryset, many=True)
         return JSONResponse(serializer.data)
