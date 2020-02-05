@@ -45,11 +45,11 @@ class MaterialSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class DemandDataSerializer(serializers.ModelSerializer):
-    Material_set = serializers.StringRelatedField(many=True)
+    # Material_set = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Demand
-        fields = ('u_id', 'Material_set', 's_lon', 's_lat', 's_nation', 's_city', 's_province', \
+        fields = ('u_id', 'm_id', 's_lon', 's_lat', 's_nation', 's_city', 's_province', \
                   's_street', 's_street_number', 's_content', 's_type', \
                   's_range', 's_aging', 's_subtime')
 
