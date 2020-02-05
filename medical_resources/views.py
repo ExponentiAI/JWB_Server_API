@@ -1,5 +1,5 @@
-from django.core.paginator import Paginator
 from django.shortcuts import render
+from django.core.paginator import Paginator
 import json
 from rest_framework import viewsets
 from rest_framework.renderers import JSONRenderer
@@ -37,14 +37,10 @@ class UserInfoViewSet(viewsets.ModelViewSet):
     queryset = UserInfo.objects.all()
     serializer_class = UserInfoSerializer
 
-
-import ast
-
-
-# 用户注册
+#用户注册
 def UserRegister(request):
     if request.method == 'POST':
-        allData = json.loads(str(request.body, 'utf-8'))
+        allData = json.loads(str(request.body,'utf-8'))
 
         # userInfo, created = UserInfo.objects.get_or_create(open_id=111)
         # if created == False:    #没创建新对象，表示该已注册过
@@ -55,13 +51,13 @@ def UserRegister(request):
         #     print("newRegis--%s" % userInfo)
         #     return JsonResponse({"msg": "NewUserRegisterSuccess！"}, status=status.HTTP_201_CREATED)
 
-        try:  # 已注册
-            userInfo = UserInfo.objects.get(open_id=allData['open_id'])
+        try:     #已注册
+            userInfo = UserInfo.objects.get(open_id = allData['open_id'])
             print("oldRegis--%s" % userInfo)
-            return JsonResponse({"msg": "UserRegistered"}, status=status.HTTP_201_CREATED)
-        except UserInfo.DoesNotExist:  # 未注册
-            UserInfo.objects.create(
-                u_type=allData['u_type'],
+            return JsonResponse({"msg": "UserRegistered"},status=status.HTTP_201_CREATED)
+        except UserInfo.DoesNotExist:    #未注册
+                UserInfo.objects.create (
+                u_type = allData['u_type'],
                 open_id=allData['open_id'],
                 nick_name=allData['nick_name'],
                 avatar_url=allData['avatar_url'],
@@ -78,6 +74,7 @@ def UserRegister(request):
             )
         print('NewUserRegisterSuccess')
         return JsonResponse({"msg": "NewUserRegisterSuccess"}, status=status.HTTP_201_CREATED)
+import ast
 
 
 # 提交供应和需求信息
