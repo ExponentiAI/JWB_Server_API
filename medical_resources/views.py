@@ -118,12 +118,6 @@ def SupAndDem(request):
             )
         return JsonResponse({"msg": "操作成功！"}, status=status.HTTP_201_CREATED)
 
-        # if demand_exists:
-        #     return JsonResponse({"msg": "操作成功！"})
-        # else:
-        #     return JsonResponse({"msg":"操作失败！"})
-
-
 # 搜索
 # class SearchResultViewSet(viewsets.ModelViewSet):
 #     def get_queryset(self):
