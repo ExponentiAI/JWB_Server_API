@@ -213,3 +213,27 @@ def get_me_info(request, pindex):
         return JSONResponse(serializer.data)
     else:
         pass
+
+
+@csrf_exempt
+def store_list(request, pindex):
+    """
+    search based on keyword on table demand. return demand and user infor.
+    """
+    if request.method == 'GET':
+        if pindex == "":  # django中默认返回空值，所以加以判断，并设置默认值为1
+            pindex = 1
+        else:  # 如果有返回在值，把返回值转为整数型
+            pindex = int(pindex)
+        keyword = request.GET.get('keyword')
+        page_items_count = request.GET.get('page_items_count')
+
+        queryset = Demand.objects.filter(store_name__icontains=keyword)
+        paginator = Paginator(queryset, page_items_count)  # 实例化Paginator, 每页显示page_items_count条数据
+
+        page = paginator.page(1) if int(pindex) > int(paginator.num_pages) else paginator.page(pindex)
+
+        serializer = DemandJoinSerializer(page, many=True)
+        return JSONResponse(serializer.data)
+    else:
+        pass

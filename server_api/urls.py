@@ -37,4 +37,6 @@ urlpatterns = [
 
     # 用户登录后，若为新用户（即数据库没有对应的open_id），则存库；否则，不存
     url(r'^UserRegister/$', views.UserRegister,name="UserRegister"),
+
+    url(r'^storeList/(?P<pindex>[0-9]+)/$', views.store_list,name="store_list"),
 ]
