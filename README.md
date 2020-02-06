@@ -32,6 +32,30 @@ nohup uwsgi --ini app_server_uwsgi.ini &
 http://121.43.233.66/
 ```
 
+## 4 .重启服务器
+
+```
+# 1. 激活环境
+conda activate wuhan
+# 进入代码文件夹
+cd /root/code/JWB_Server_API
+
+# 2. 更新代码
+git pull
+
+## 代码更新错误，可以强制回滚代码到任意版本，再重新pull
+git log
+git reset --hard 881362048c4467b78e1d0e19e76ec0d5def20d6a
+git pull
+
+# 3. 杀掉uwsgi服务
+ps aux|grep uwsgi
+kill -9 进程号
+
+# 4. 重启服务
+nohup uwsgi --ini app_server_uwsgi.ini &
+```
+
 ----
 
 
