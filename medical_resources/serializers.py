@@ -58,4 +58,19 @@ class MaterialDataSerializer(serializers.ModelSerializer):
     # 首页展示serializer
     class Meta:
         model = Material
-        fields = ('m_id', 'type', 'count', 'goods_name')
+
+
+class UserInfoDataSerializer(serializers.ModelSerializer):  # user序列化器
+    class Meta:
+        model = UserInfo
+        fields = '__all__'
+
+
+class DemandJoinSerializer(serializers.ModelSerializer):  # user序列化器
+    u_id = UserInfoDataSerializer()
+
+    class Meta:
+        model = Demand
+        fields = ('s_lon', 's_lat', 's_nation', 's_city', 's_province', \
+                  's_street', 's_street_number', 's_content', 's_type', \
+                  's_range', 's_aging', 's_subtime', 'store_name', 'u_id')
