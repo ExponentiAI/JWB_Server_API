@@ -3,8 +3,6 @@ from django.core.paginator import Paginator
 import json
 from rest_framework import viewsets
 from rest_framework.renderers import JSONRenderer
-
-from medical_resources.fuck_django import demand2json
 from medical_resources.serializers import *
 from django.http import HttpResponse
 from django.db.models import Q
@@ -22,7 +20,7 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 
 from medical_resources.utils import get_lat_lon_range
-
+import requests
 
 class JSONResponse(HttpResponse):
     """
@@ -40,10 +38,30 @@ class UserInfoViewSet(viewsets.ModelViewSet):
     serializer_class = UserInfoSerializer
 
 
-# 用户注册
+# 用户登录
+def UserLogin(request):
+    if request.method == 'POST':
+
+        # str = '{"appid":111,"secret":1,"js_code":"sss","grant_type":66.66}'
+        loginCodeData = JSONParser().parse(request)
+        appid = loginCodeData['appid']
+        secret = loginCodeData['secret']
+        js_code = loginCodeData['js_code']
+        grant_type = loginCodeData['grant_type']
+
+        #GET https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
+        getUserSesstionDataURL =  "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid \
+                                  + "&secret=" + secret + "&js_code=" + js_code \
+                                  + "&grant_type=" + grant_type
+        resp = requests.get(getUserSesstionDataURL)
+        userSesstionData = json.loads(resp.text)
+        # userSesstionData = JSONParser().parse(resp.text)
+        return JsonResponse(userSesstionData)
+
+#用户注册
 def UserRegister(request):
     if request.method == 'POST':
-        allData = json.loads(str(request.body, 'utf-8'))
+        allData = json.loads(str(request.body,'utf-8'))
 
         # userInfo, created = UserInfo.objects.get_or_create(open_id=111)
         # if created == False:    #没创建新对象，表示该已注册过
@@ -54,13 +72,13 @@ def UserRegister(request):
         #     print("newRegis--%s" % userInfo)
         #     return JsonResponse({"msg": "NewUserRegisterSuccess！"}, status=status.HTTP_201_CREATED)
 
-        try:  # 已注册
-            userInfo = UserInfo.objects.get(open_id=allData['open_id'])
+        try:     #已注册
+            userInfo = UserInfo.objects.get(open_id = allData['open_id'])
             print("oldRegis--%s" % userInfo)
-            return JsonResponse({"msg": "UserRegistered"}, status=status.HTTP_201_CREATED)
-        except UserInfo.DoesNotExist:  # 未注册
-            UserInfo.objects.create(
-                u_type=allData['u_type'],
+            return JsonResponse({"msg": "UserRegistered"},status=status.HTTP_201_CREATED)
+        except UserInfo.DoesNotExist:    #未注册
+                UserInfo.objects.create (
+                u_type = allData['u_type'],
                 open_id=allData['open_id'],
                 nick_name=allData['nick_name'],
                 avatar_url=allData['avatar_url'],
@@ -77,8 +95,6 @@ def UserRegister(request):
             )
         print('NewUserRegisterSuccess')
         return JsonResponse({"msg": "NewUserRegisterSuccess"}, status=status.HTTP_201_CREATED)
-
-
 import ast
 
 
@@ -122,7 +138,6 @@ def SupAndDem(request):
                 count=goods_arr[index]['num_or_price']
             )
         return JsonResponse({"msg": "操作成功！"}, status=status.HTTP_201_CREATED)
-
 
 # 搜索
 # class SearchResultViewSet(viewsets.ModelViewSet):
@@ -172,13 +187,6 @@ def get_new_info(request, pindex):
         # id__gte=724 >=724  ; id__lte=724 <=724
         queryset = Demand.objects.filter(s_lat__lte=max_lat, s_lon__lte=max_lot,
                                          s_lat__gte=min_lat, s_lon__gte=min_lot).order_by('s_subtime')
-
-        # results = []
-        # for demand in queryset:
-        #     # 拿到口罩信息
-        #     demand.m_id = demand.m_id.all()
-        #     results.append(demand)
-
         paginator = Paginator(queryset, page_items_count)  # 实例化Paginator, 每页显示page_items_count条数据
 
         page = paginator.page(1) if pindex > int(paginator.num_pages) else paginator.page(pindex)
