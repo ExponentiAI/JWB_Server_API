@@ -88,8 +88,8 @@ DATABASES = {
         'NAME': 'JWB',
         'PORT': '3306',
         'HOST': '121.43.233.66',
-        'USER': 'luojie',
-        'PASSWORD': '123456',
+        'USER': 'root',
+        'PASSWORD': 'Hnulab#1234',
     }
 }
 

@@ -3,6 +3,8 @@ from django.core.paginator import Paginator
 import json
 from rest_framework import viewsets
 from rest_framework.renderers import JSONRenderer
+
+from medical_resources.fuck_django import demand2json
 from medical_resources.serializers import *
 from django.http import HttpResponse
 from django.db.models import Q
