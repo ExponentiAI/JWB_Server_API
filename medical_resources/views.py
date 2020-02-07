@@ -20,7 +20,7 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 
 from medical_resources.utils import get_lat_lon_range
-
+import requests
 
 class JSONResponse(HttpResponse):
     """
@@ -36,6 +36,27 @@ class JSONResponse(HttpResponse):
 class UserInfoViewSet(viewsets.ModelViewSet):
     queryset = UserInfo.objects.all()
     serializer_class = UserInfoSerializer
+
+
+# 用户登录
+def UserLogin(request):
+    if request.method == 'POST':
+
+        # str = '{"appid":111,"secret":1,"js_code":"sss","grant_type":66.66}'
+        loginCodeData = JSONParser().parse(request)
+        appid = loginCodeData['appid']
+        secret = loginCodeData['secret']
+        js_code = loginCodeData['js_code']
+        grant_type = loginCodeData['grant_type']
+
+        #GET https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
+        getUserSesstionDataURL =  "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid \
+                                  + "&secret=" + secret + "&js_code=" + js_code \
+                                  + "&grant_type=" + grant_type
+        resp = requests.get(getUserSesstionDataURL)
+        userSesstionData = json.loads(resp.text)
+        # userSesstionData = JSONParser().parse(resp.text)
+        return JsonResponse(userSesstionData)
 
 #用户注册
 def UserRegister(request):
