@@ -27,8 +27,8 @@ class UserInfo(models.Model):
 
 
 class Demand(models.Model):  # 供求表
-    u_id = models.ForeignKey(UserInfo, on_delete=models.CASCADE, verbose_name='userid', related_name='u_id',
-                             default="")
+    u_id = models.ForeignKey(UserInfo, on_delete=models.CASCADE, verbose_name='userid',
+                             related_name='u_id',default="")
     s_lon = models.DecimalField(max_digits=40, decimal_places=30, verbose_name='经度', default="")
     s_lat = models.DecimalField(max_digits=40, decimal_places=30, verbose_name='纬度', default="")
     s_nation = models.CharField(max_length=100, verbose_name='国家', default="")
@@ -44,10 +44,12 @@ class Demand(models.Model):  # 供求表
     s_subtime = models.CharField(max_length=300, verbose_name='时间', default="")
     store_name = models.CharField(max_length=300, verbose_name='商店名称', default="")
 
+
 class Material(models.Model):  # 供应物资表
     class Meta:
         verbose_name = 'Material Data'
         verbose_name_plural = 'Material Data'
+
     m_id = models.ForeignKey(Demand, on_delete=models.CASCADE, verbose_name='供需id', related_name='m_id', default="")
     type = models.IntegerField(verbose_name='物资类别', default="")  #
     count = models.IntegerField(verbose_name='数量', default='')

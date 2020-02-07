@@ -18,6 +18,12 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 
+class UserInfoDataSerializer(serializers.ModelSerializer):  # user序列化器
+    class Meta:
+        model = UserInfo
+        fields = '__all__'
+
+
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
@@ -44,26 +50,27 @@ class MaterialSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 
-class DemandDataSerializer(serializers.ModelSerializer):
-    count = serializers.IntegerField(source='Material.count', read_only=True)
-
-    class Meta:
-        model = Demand
-        fields = ('u_id', 'm_id', 'count', 's_lon', 's_lat', 's_nation', 's_city', 's_province', \
-                  's_street', 's_street_number', 's_content', 's_type', \
-                  's_range', 's_aging', 's_subtime')
-
-
 class MaterialDataSerializer(serializers.ModelSerializer):
     # 首页展示serializer
     class Meta:
         model = Material
+        fields = ('m_id', 'type', 'count', 'goods_name')
 
 
-class UserInfoDataSerializer(serializers.ModelSerializer):  # user序列化器
+class UserAvatarUrlDataSerializer(serializers.ModelSerializer):  # user序列化器
     class Meta:
         model = UserInfo
-        fields = '__all__'
+        fields = ('avatar_url')
+
+
+class DemandDataSerializer(serializers.ModelSerializer):
+    u_id = UserInfoDataSerializer()
+
+    class Meta:
+        model = Demand
+        fields = ('u_id', 'm_id', 'store_name', 's_lon', 's_lat', 's_nation', 's_city', 's_province', \
+                  's_street', 's_street_number', 's_content', 's_type', \
+                  's_range', 's_aging', 's_subtime')
 
 
 class DemandJoinSerializer(serializers.ModelSerializer):  # user序列化器
