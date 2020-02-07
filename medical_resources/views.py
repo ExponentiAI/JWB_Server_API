@@ -103,13 +103,13 @@ import ast
 # 提交供应和需求信息
 @csrf_exempt
 def SupAndDem(request):
-    print('if外层')
     if request.method == 'POST':
-        print('if内层')
         afferent_data = request.POST
-        print('开始存储')
-        print(afferent_data['u_id'])
-        print(request.POST)
+        if afferent_data['type'] == '1':
+            this_store = afferent_data['store_name']
+        else:
+            this_store = ''
+        print(this_store)
         demand = Demand.objects.create(
             u_id=UserInfo.objects.get(open_id=afferent_data['u_id']),
             s_lon=afferent_data['lon'],
@@ -124,15 +124,11 @@ def SupAndDem(request):
             s_type=afferent_data['type'],
             s_range=afferent_data['range'],
             s_aging=afferent_data['aging'],
-            s_subtime=afferent_data['subtime']
+            s_subtime=afferent_data['subtime'],
+            store_name = this_store
         )
-        print('demand存储结束')
         goods_arr = ast.literal_eval(afferent_data['goods'])
-        print(afferent_data['goods'])
-        print(type(goods_arr))
-        print('开始for')
         for index, value in enumerate(goods_arr):
-            print(index, value, )
             Material.objects.create(
                 m_id=demand,
                 type=index,
@@ -141,32 +137,6 @@ def SupAndDem(request):
             )
         return JsonResponse({"msg": "操作成功！"}, status=status.HTTP_201_CREATED)
 
-# 搜索
-# class SearchResultViewSet(viewsets.ModelViewSet):
-#     def get_queryset(self):
-#         keyword = self.request.query_params.get("keyword", "")
-#         print('keyword')
-#         return SupAndDem.objects.filter(Q(content__contains=keyword))
-#     serializer_class = SupAndDemSerializer
-
-
-# UserInfo.objects.create(
-#          open_id = 1,
-#          u_type = 1,
-#          nick_name = 'sds',
-#          avatar_url='sssss',
-#          gender='sds',
-#          store_name='sds',
-#          m_longitude=123213,
-#          m_latitude=45454,
-#          nation='sds',
-#          city='sds',
-#          province='sds',
-#          district='sds',
-#          street='sds',
-#          street_number='sds'
-#
-#      )
 
 # 纬度1度是111KM,1分是1.85KM
 
