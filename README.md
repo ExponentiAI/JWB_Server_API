@@ -32,7 +32,7 @@ nohup uwsgi --ini app_server_uwsgi.ini &
 http://121.43.233.66/
 ```
 
-## 4 .重启服务器
+# 4 .重启服务器
 
 ```
 # 1. 激活环境
