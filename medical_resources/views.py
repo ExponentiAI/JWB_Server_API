@@ -47,11 +47,10 @@ def UserLogin(request):
 
         # str = '{"appid":111,"secret":1,"js_code":"sss","grant_type":66.66}'
         loginCodeData = JSONParser().parse(request)
-        appid = loginCodeData['appid']
-        secret = loginCodeData['secret']
+        appid = settings.AppId
+        secret = settings.AppSecret
         js_code = loginCodeData['js_code']
-        grant_type = loginCodeData['grant_type']
-
+        grant_type = 'authorization_code'
         #GET https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
         getUserSesstionDataURL =  "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid \
                                   + "&secret=" + secret + "&js_code=" + js_code \
