@@ -133,3 +133,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# 小程序开发者id
+AppId="wxb038b5f6187b1412"
+# 小程序的AppSecret
+AppSecret="a86c4374806324475a28450df4e2f57c"

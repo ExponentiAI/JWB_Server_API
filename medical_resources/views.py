@@ -13,7 +13,7 @@ from rest_framework import status
 from django.http import JsonResponse
 from medical_resources.models import *
 from django.views.decorators.csrf import csrf_exempt
-
+import requests
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
@@ -23,6 +23,7 @@ from django.http import JsonResponse
 
 from medical_resources.utils import get_lat_lon_range
 import requests
+from server_api import settings
 
 class JSONResponse(HttpResponse):
     """
@@ -97,45 +98,74 @@ def UserRegister(request):
             )
         print('NewUserRegisterSuccess')
         return JsonResponse({"msg": "NewUserRegisterSuccess"}, status=status.HTTP_201_CREATED)
+
+
+
 import ast
-
-
+from urllib import parse,request
+import urllib
+import argparse
 # 提交供应和需求信息
+#检查敏感词
+def check_sensitive(keyword):
+    r = requests.get(
+        'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + settings.AppId + '&secret=' + settings.AppSecret + '')
+    data = { "content": keyword}
+    s = requests.post('https://api.weixin.qq.com/wxa/msg_sec_check?access_token=' + r.json()['access_token'],
+                      json.dumps(data))
+    # print (repr(json.dumps(data)))
+    # path = 'https://api.weixin.qq.com/wxa/msg_sec_check?access_token=' + r.json()['access_token']
+    # params = { "content": keyword}
+    # es_params = json.dumps(params)
+    # headers = {'Accept-Charset': 'utf-8', 'Content-Type': 'application/json'}
+    # params1 = bytes(es_params, 'utf8')
+    # req = urllib.request.Request(url=path, data=params1, headers=headers, method='POST')
+    # response11 = urllib.request.urlopen(req).read()
+    # print('=====')
+    # print(params1)
+    # print(response11)
+    return s.json()['errcode']
+
+
+
 @csrf_exempt
 def SupAndDem(request):
     if request.method == 'POST':
         afferent_data = request.POST
-        if afferent_data['type'] == '1':
-            this_store = afferent_data['store_name']
+        #敏感词验证
+        if check_sensitive(afferent_data['store_name']) == '0' or check_sensitive(afferent_data['content']) =='0':
+            return JsonResponse({"msg": "内容涉及敏感词！","status_code":"401"}, status=status.HTTP_201_CREATED)
         else:
-            this_store = ''
-        print(this_store)
-        demand = Demand.objects.create(
-            u_id=UserInfo.objects.get(open_id=afferent_data['u_id']),
-            s_lon=afferent_data['lon'],
-            s_lat=afferent_data['lat'],
-            s_nation=afferent_data['nation'],
-            s_city=afferent_data['city'],
-            s_province=afferent_data['province'],
-            s_district=afferent_data['district'],
-            s_street=afferent_data['street'],
-            s_street_number=afferent_data['street_number'],
-            s_content=afferent_data['content'],
-            s_type=afferent_data['type'],
-            s_range=afferent_data['range'],
-            s_aging=afferent_data['aging'],
-            s_subtime=afferent_data['subtime'],
-            store_name = this_store
-        )
-        goods_arr = ast.literal_eval(afferent_data['goods'])
-        for index, value in enumerate(goods_arr):
-            Material.objects.create(
-                m_id=demand,
-                type=index,
-                goods_name=goods_arr[index]['goods_name'],
-                count=goods_arr[index]['num_or_price']
+            if afferent_data['type'] == '1':
+                this_store = afferent_data['store_name']
+            else:
+                this_store = ''
+            demand = Demand.objects.create(
+                u_id=UserInfo.objects.get(open_id=afferent_data['u_id']),
+                s_lon=afferent_data['lon'],
+                s_lat=afferent_data['lat'],
+                s_nation=afferent_data['nation'],
+                s_city=afferent_data['city'],
+                s_province=afferent_data['province'],
+                s_district=afferent_data['district'],
+                s_street=afferent_data['street'],
+                s_street_number=afferent_data['street_number'],
+                s_content=afferent_data['content'],
+                s_type=afferent_data['type'],
+                s_range=afferent_data['range'],
+                s_aging=afferent_data['aging'],
+                s_subtime=afferent_data['subtime'],
+                store_name = this_store
             )
-        return JsonResponse({"msg": "操作成功！"}, status=status.HTTP_201_CREATED)
+            goods_arr = ast.literal_eval(afferent_data['goods'])
+            for index, value in enumerate(goods_arr):
+                Material.objects.create(
+                    m_id=demand,
+                    type=index,
+                    goods_name=goods_arr[index]['goods_name'],
+                    count=goods_arr[index]['num_or_price']
+                )
+            return JsonResponse({"msg": "操作成功！","status_code":"201"}, status=status.HTTP_201_CREATED)
 
 
 # 纬度1度是111KM,1分是1.85KM
