@@ -107,22 +107,13 @@ import argparse
 # 提交供应和需求信息
 #检查敏感词
 def check_sensitive(keyword):
+    appid = "wxb038b5f6187b1412"
+    secret = "24fe0ebb30332ef3dd1f2b03ff7cb00a"
     r = requests.get(
-        'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + settings.AppId + '&secret=' + settings.AppSecret + '')
+        'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + appid + '&secret=' + secret + '')
     data = { "content": keyword}
     s = requests.post('https://api.weixin.qq.com/wxa/msg_sec_check?access_token=' + r.json()['access_token'],
                       json.dumps(data))
-    # print (repr(json.dumps(data)))
-    # path = 'https://api.weixin.qq.com/wxa/msg_sec_check?access_token=' + r.json()['access_token']
-    # params = { "content": keyword}
-    # es_params = json.dumps(params)
-    # headers = {'Accept-Charset': 'utf-8', 'Content-Type': 'application/json'}
-    # params1 = bytes(es_params, 'utf8')
-    # req = urllib.request.Request(url=path, data=params1, headers=headers, method='POST')
-    # response11 = urllib.request.urlopen(req).read()
-    # print('=====')
-    # print(params1)
-    # print(response11)
     return s.json()['errcode']
 
 
@@ -135,6 +126,8 @@ def SupAndDem(request):
         if check_sensitive(afferent_data['store_name']) == '0' or check_sensitive(afferent_data['content']) =='0':
             return JsonResponse({"msg": "内容涉及敏感词！","status_code":"401"}, status=status.HTTP_201_CREATED)
         else:
+            print(request.POST)
+            print(afferent_data['type'])
             if afferent_data['type'] == '1':
                 this_store = afferent_data['store_name']
             else:
