@@ -43,20 +43,20 @@ class UserInfoViewSet(viewsets.ModelViewSet):
 
 # 用户登录
 def UserLogin(request):
-    if request.method == 'POST':
-
-        # str = '{"appid":111,"secret":1,"js_code":"sss","grant_type":66.66}'
-        loginCodeData = JSONParser().parse(request)
-        appid = settings.AppId
-        secret = settings.AppSecret
-        js_code = loginCodeData['js_code']
+    if request.method == 'GET':
+        # print(request.GET)
+        appid = "wxb038b5f6187b1412"
+        secret ="24fe0ebb30332ef3dd1f2b03ff7cb00a"
+        js_code = request.GET['js_code']
         grant_type = 'authorization_code'
-        #GET https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
-        getUserSesstionDataURL =  "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid \
-                                  + "&secret=" + secret + "&js_code=" + js_code \
-                                  + "&grant_type=" + grant_type
-        resp = requests.get(getUserSesstionDataURL)
+        resp = requests.get("https://api.weixin.qq.com/sns/jscode2session?appid=" + appid+ "&secret=" + secret + "&js_code=" + js_code + "&grant_type=" + grant_type)
         userSesstionData = json.loads(resp.text)
+        print(userSesstionData)
+        print(appid)
+        print('------------')
+        print(secret)
+        print('============')
+        print(resp)
         # userSesstionData = JSONParser().parse(resp.text)
         return JsonResponse(userSesstionData)
 

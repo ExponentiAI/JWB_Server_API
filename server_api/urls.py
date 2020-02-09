@@ -36,7 +36,7 @@ urlpatterns = [
     url(r'^SupAndDem/$', views.SupAndDem,name="SupAndDem"),
 
     # 用户登录
-    url(r'^UserLogin/$', views.UserLogin, name="UserLogin"),
+    url(r'^UserLogin', views.UserLogin, name="UserLogin"),
     # 用户登录后，若为新用户（即数据库没有对应的open_id），则存库；否则，不存
     url(r'^UserRegister/$', views.UserRegister,name="UserRegister"),
 
