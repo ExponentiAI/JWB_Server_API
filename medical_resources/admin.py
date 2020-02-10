@@ -5,3 +5,6 @@ from django.contrib import admin
 from medical_resources.models import *
 
 # admin.site.register()
+from medical_resources.models import Demand, UserInfo, Material
+
+admin.site.register([Demand, UserInfo, Material])

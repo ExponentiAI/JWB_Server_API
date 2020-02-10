@@ -22,6 +22,12 @@ from rest_framework.routers import DefaultRouter
 router = routers.DefaultRouter()
 router.register(r'Authentication', views.UserInfoViewSet)
 
+# router.register(r'users', views.UserViewSet)
+# router.register(r'groups', views.GroupViewSet)
+router.register(r'UserInfo', views.UserInfoViewSet)
+router.register(r'Demand', views.DemandViewSet)
+router.register(r'Material', views.MaterialViewSet)
+
 # 使用自动URL路由连接我们的API。
 # 另外，我们还包括支持浏览器浏览API的登录URL。
 urlpatterns = [
@@ -33,12 +39,12 @@ urlpatterns = [
     url(r'^me/(?P<pindex>[0-9]+)/$', views.get_me_info),
     url(r'^res_details/$', views.res_details),
     # 提交需求和供应
-    url(r'^SupAndDem/$', views.SupAndDem,name="SupAndDem"),
+    url(r'^SupAndDem/$', views.SupAndDem, name="SupAndDem"),
 
     # 用户登录
     url(r'^UserLogin', views.UserLogin, name="UserLogin"),
     # 用户登录后，若为新用户（即数据库没有对应的open_id），则存库；否则，不存
-    url(r'^UserRegister/$', views.UserRegister,name="UserRegister"),
+    url(r'^UserRegister/$', views.UserRegister, name="UserRegister"),
 
-    url(r'^storeList/(?P<pindex>[0-9]+)/$', views.store_list,name="store_list"),
+    url(r'^storeList/(?P<pindex>[0-9]+)/$', views.store_list, name="store_list"),
 ]

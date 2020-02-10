@@ -25,6 +25,7 @@ from medical_resources.utils import get_lat_lon_range
 import requests
 from server_api import settings
 
+
 class JSONResponse(HttpResponse):
     """
     用于返回JSON数据.
@@ -41,15 +42,26 @@ class UserInfoViewSet(viewsets.ModelViewSet):
     serializer_class = UserInfoSerializer
 
 
+class DemandViewSet(viewsets.ModelViewSet):
+    queryset = UserInfo.objects.all()
+    serializer_class = DemandSerializer
+
+
+class MaterialViewSet(viewsets.ModelViewSet):
+    queryset = Material.objects.all()
+    serializer_class = MaterialSerializer
+
+
 # 用户登录
 def UserLogin(request):
     if request.method == 'GET':
         # print(request.GET)
         appid = "wxb038b5f6187b1412"
-        secret ="24fe0ebb30332ef3dd1f2b03ff7cb00a"
+        secret = "24fe0ebb30332ef3dd1f2b03ff7cb00a"
         js_code = request.GET['js_code']
         grant_type = 'authorization_code'
-        resp = requests.get("https://api.weixin.qq.com/sns/jscode2session?appid=" + appid+ "&secret=" + secret + "&js_code=" + js_code + "&grant_type=" + grant_type)
+        resp = requests.get(
+            "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + secret + "&js_code=" + js_code + "&grant_type=" + grant_type)
         userSesstionData = json.loads(resp.text)
         print(userSesstionData)
         print(appid)
@@ -60,10 +72,11 @@ def UserLogin(request):
         # userSesstionData = JSONParser().parse(resp.text)
         return JsonResponse(userSesstionData)
 
-#用户注册
+
+# 用户注册
 def UserRegister(request):
     if request.method == 'POST':
-        allData = json.loads(str(request.body,'utf-8'))
+        allData = json.loads(str(request.body, 'utf-8'))
         # userInfo, created = UserInfo.objects.get_or_create(open_id=111)
         # if created == False:    #没创建新对象，表示该已注册过
         #     print("oldRegis--%s" % userInfo)
@@ -72,13 +85,13 @@ def UserRegister(request):
         #     UserInfo.objects.filter(open_id=allData['open_id']).update(**allData)
         #     print("newRegis--%s" % userInfo)
         #     return JsonResponse({"msg": "NewUserRegisterSuccess！"}, status=status.HTTP_201_CREATED)
-        try:     #已注册
-            userInfo = UserInfo.objects.get(open_id = allData['open_id'])
+        try:  # 已注册
+            userInfo = UserInfo.objects.get(open_id=allData['open_id'])
             print("oldRegis--%s" % userInfo)
-            return JsonResponse({"msg": "UserRegistered"},status=status.HTTP_201_CREATED)
-        except UserInfo.DoesNotExist:    #未注册
-                UserInfo.objects.create (
-                u_type = allData['u_type'],
+            return JsonResponse({"msg": "UserRegistered"}, status=status.HTTP_201_CREATED)
+        except UserInfo.DoesNotExist:  # 未注册
+            UserInfo.objects.create(
+                u_type=allData['u_type'],
                 open_id=allData['open_id'],
                 nick_name=allData['nick_name'],
                 avatar_url=allData['avatar_url'],
@@ -97,32 +110,32 @@ def UserRegister(request):
         return JsonResponse({"msg": "NewUserRegisterSuccess"}, status=status.HTTP_201_CREATED)
 
 
-
 import ast
-from urllib import parse,request
+from urllib import parse, request
 import urllib
 import argparse
+
+
 # 提交供应和需求信息
-#检查敏感词
+# 检查敏感词
 def check_sensitive(keyword):
     appid = "wxb038b5f6187b1412"
     secret = "24fe0ebb30332ef3dd1f2b03ff7cb00a"
     r = requests.get(
         'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + appid + '&secret=' + secret + '')
-    data = { "content": keyword}
+    data = {"content": keyword}
     s = requests.post('https://api.weixin.qq.com/wxa/msg_sec_check?access_token=' + r.json()['access_token'],
                       json.dumps(data))
     return s.json()['errcode']
-
 
 
 @csrf_exempt
 def SupAndDem(request):
     if request.method == 'POST':
         afferent_data = request.POST
-        #敏感词验证
-        if check_sensitive(afferent_data['store_name']) == '0' or check_sensitive(afferent_data['content']) =='0':
-            return JsonResponse({"msg": "内容涉及敏感词！","status_code":"401"}, status=status.HTTP_201_CREATED)
+        # 敏感词验证
+        if check_sensitive(afferent_data['store_name']) == '0' or check_sensitive(afferent_data['content']) == '0':
+            return JsonResponse({"msg": "内容涉及敏感词！", "status_code": "401"}, status=status.HTTP_201_CREATED)
         else:
             print(request.POST)
             print(afferent_data['type'])
@@ -145,7 +158,7 @@ def SupAndDem(request):
                 s_range=afferent_data['range'],
                 s_aging=afferent_data['aging'],
                 s_subtime=afferent_data['subtime'],
-                store_name = this_store
+                store_name=this_store
             )
             goods_arr = ast.literal_eval(afferent_data['goods'])
             for index, value in enumerate(goods_arr):
@@ -155,7 +168,7 @@ def SupAndDem(request):
                     goods_name=goods_arr[index]['goods_name'],
                     count=goods_arr[index]['num_or_price']
                 )
-            return JsonResponse({"msg": "操作成功！","status_code":"201"}, status=status.HTTP_201_CREATED)
+            return JsonResponse({"msg": "操作成功！", "status_code": "201"}, status=status.HTTP_201_CREATED)
 
 
 # 纬度1度是111KM,1分是1.85KM
@@ -218,7 +231,10 @@ def get_me_info(request, pindex):
         data = JSONParser().parse(request)
         u_id = str(data['u_id'])
         page_items_count = int(data['page_items_count'])
-        user = UserInfo.objects.get(open_id = u_id)
+
+        # queryset = Demand.objects.filter(u_id=u_id).order_by('s_subtime')
+
+        user = UserInfo.objects.get(open_id=u_id)
         queryset = Demand.objects.filter(u_id=user.id).order_by('s_subtime')
 
         paginator = Paginator(queryset, page_items_count)  # 实例化Paginator, 每页显示page_items_count条数据
