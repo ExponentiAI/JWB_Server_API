@@ -90,7 +90,7 @@ https://docs.qq.com/doc/DWHdSUWdOZWZCbm9E
 
 后台管理系统
 ```
-http://121.43.233.66:8002/admin/
+https://jwb.comdesignlab.com/admin/login/?next=/admin/
 root 
 hnuwulab 
 ```
