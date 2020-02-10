@@ -6,6 +6,7 @@
 # @Email   : 550997728@qq.com
 # @File    : fuck_django.py
 
+
 def demand2json(queryset):
     """
     """
@@ -16,6 +17,8 @@ def demand2json(queryset):
         data['avatar_url'] = item.u_id.avatar_url
         # 商店名
         data['store_name'] = item.store_name
+        # 昵称
+        data['nick_name'] = item.u_id.nick_name
         # 经度
         data['s_lon'] = item.s_lon
         # 纬度
