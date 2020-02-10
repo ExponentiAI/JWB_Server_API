@@ -11,9 +11,11 @@ from django.db import models
 
 class UserInfo(models.Model):
     u_type = models.IntegerField(verbose_name='用户类别', default=9)  # 0商家  1 用户
-    open_id = models.CharField(max_length=150, verbose_name='用户openID', default='')
-    nick_name = models.CharField(max_length=300, verbose_name='用户名', default="")
-    avatar_url = models.CharField(max_length=500, verbose_name='头像', default="")
+
+    open_id = models.CharField(max_length=1638, verbose_name='用户openID', default=9)
+    nick_name = models.CharField(max_length=1638, verbose_name='用户名', default="")
+    avatar_url = models.CharField(max_length=1638, verbose_name='头像', default="")
+
     gender = models.CharField(max_length=20, verbose_name='性别', default="")
     store_name = models.CharField(max_length=150, verbose_name='商店名称', default="")
     m_longitude = models.DecimalField(max_digits=40, decimal_places=30, verbose_name='经度', default="")
