@@ -64,7 +64,6 @@ def UserLogin(request):
 def UserRegister(request):
     if request.method == 'POST':
         allData = json.loads(str(request.body,'utf-8'))
-
         # userInfo, created = UserInfo.objects.get_or_create(open_id=111)
         # if created == False:    #没创建新对象，表示该已注册过
         #     print("oldRegis--%s" % userInfo)
@@ -73,7 +72,6 @@ def UserRegister(request):
         #     UserInfo.objects.filter(open_id=allData['open_id']).update(**allData)
         #     print("newRegis--%s" % userInfo)
         #     return JsonResponse({"msg": "NewUserRegisterSuccess！"}, status=status.HTTP_201_CREATED)
-
         try:     #已注册
             userInfo = UserInfo.objects.get(open_id = allData['open_id'])
             print("oldRegis--%s" % userInfo)
@@ -220,8 +218,8 @@ def get_me_info(request, pindex):
         data = JSONParser().parse(request)
         u_id = str(data['u_id'])
         page_items_count = int(data['page_items_count'])
-
-        queryset = Demand.objects.filter(u_id=u_id).order_by('s_subtime')
+        user = UserInfo.objects.get(open_id = u_id)
+        queryset = Demand.objects.filter(u_id=user.id).order_by('s_subtime')
 
         paginator = Paginator(queryset, page_items_count)  # 实例化Paginator, 每页显示page_items_count条数据
 
