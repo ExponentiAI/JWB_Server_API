@@ -51,24 +51,37 @@ class MaterialViewSet(viewsets.ModelViewSet):
     queryset = Material.objects.all()
     serializer_class = MaterialSerializer
 
+#检查tocken过期
+from django.utils import timezone
+def check_tocken():
+    appinfo = AppInfo.objects.get(appid="wxb038b5f6187b1412")
+    appid = appinfo.appid
+    secret = appinfo.secret
+    subtime = appinfo.subtime
+    access_token = appinfo.access_token
+    now_time = timezone.now()
+    durn = (now_time - subtime).seconds
+    print(durn)
+    if durn>4000:
+        r = requests.get('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + appid + '&secret=' + secret + '')
+        appinfo.access_token =  access_token=json.loads(r.text)['access_token']
+        appinfo.save()
+        print(json.loads(r.text)['access_token'])
+        return {'appid':appid,'secret':secret, 'access_token': json.loads(r.text)['access_token']}
+    else:
+        return {'appid': appid, 'secret': secret, 'access_token': access_token}
 
 # 用户登录
 def UserLogin(request):
     if request.method == 'GET':
-        # print(request.GET)
-        appid = "wxb038b5f6187b1412"
-        secret = "24fe0ebb30332ef3dd1f2b03ff7cb00a"
+        app_data = check_tocken()
+        appid = app_data['appid']
+        secret = app_data['secret']
         js_code = request.GET['js_code']
         grant_type = 'authorization_code'
         resp = requests.get(
             "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + secret + "&js_code=" + js_code + "&grant_type=" + grant_type)
         userSesstionData = json.loads(resp.text)
-        print(userSesstionData)
-        print(appid)
-        print('------------')
-        print(secret)
-        print('============')
-        print(resp)
         # userSesstionData = JSONParser().parse(resp.text)
         return JsonResponse(userSesstionData)
 
@@ -109,24 +122,43 @@ def UserRegister(request):
         print('NewUserRegisterSuccess')
         return JsonResponse({"msg": "NewUserRegisterSuccess"}, status=status.HTTP_201_CREATED)
 
+import numpy as np
+import time
+class MyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        elif isinstance(obj, bytes):
+            return str(obj, encoding='utf-8');
+        return json.JSONEncoder.default(self, obj)
 
 import ast
-from urllib import parse, request
-import urllib
+import urllib.parse
+import urllib.request
+import json
 import argparse
-
+from profanity_check import predict, predict_prob
+from urllib.parse import urlencode
 
 # 提交供应和需求信息
 # 检查敏感词
-def check_sensitive(keyword):
-    appid = "wxb038b5f6187b1412"
-    secret = "24fe0ebb30332ef3dd1f2b03ff7cb00a"
-    r = requests.get(
-        'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' + appid + '&secret=' + secret + '')
-    data = {"content": keyword}
-    s = requests.post('https://api.weixin.qq.com/wxa/msg_sec_check?access_token=' + r.json()['access_token'],
-                      json.dumps(data))
-    return s.json()['errcode']
+def check_sensitive(keyword1,keyword2):
+    app_data = check_tocken()
+    appid = app_data['appid']
+    secret = app_data['secret']
+    access_token = app_data['access_token']
+    params = {
+        'content': keyword1+keyword2
+    }
+    path = 'https://api.weixin.qq.com/wxa/msg_sec_check?access_token='+access_token
+    headers = {'Charset': 'utf-8', 'Content-Type': 'application/json'}
+
+    params = json.dumps(params, ensure_ascii=False)
+    params = bytes(params, 'utf-8')
+    req = urllib.request.Request(url=path, data=params, headers=headers, method='POST')
+    res = urllib.request.urlopen(req).read()
+    print(json.loads(res))
+    return json.loads(res)['errcode']
 
 
 @csrf_exempt
@@ -134,11 +166,9 @@ def SupAndDem(request):
     if request.method == 'POST':
         afferent_data = request.POST
         # 敏感词验证
-        if check_sensitive(afferent_data['store_name']) == '0' or check_sensitive(afferent_data['content']) == '0':
+        if check_sensitive(afferent_data['store_name'],afferent_data['content']) != 0 :
             return JsonResponse({"msg": "内容涉及敏感词！", "status_code": "401"}, status=status.HTTP_201_CREATED)
         else:
-            print(request.POST)
-            print(afferent_data['type'])
             if afferent_data['type'] == '1':
                 this_store = afferent_data['store_name']
             else:
