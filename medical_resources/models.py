@@ -43,7 +43,8 @@ class Demand(models.Model):  # 供求表
     s_type = models.IntegerField(verbose_name='供需类别', default="")  # 0为需求，1为供应
     s_range = models.IntegerField(verbose_name='位置范围', default="")
     s_aging = models.IntegerField(verbose_name='发布时效', default="")
-    s_subtime = models.CharField(max_length=300, verbose_name='时间', default="")
+
+    s_subtime = models.DateTimeField(auto_now_add=True, verbose_name='时间')
     store_name = models.CharField(max_length=300, verbose_name='商店名称', default="")
 
 

@@ -6,6 +6,8 @@
 # @Email   : 550997728@qq.com
 # @File    : fuck_django.py
 
+from datetime import datetime
+
 
 def demand2json(queryset):
     """
@@ -41,8 +43,8 @@ def demand2json(queryset):
         data['s_range'] = item.s_range
         # 时效
         data['s_aging'] = item.s_aging
-        # 时间
-        data['s_subtime'] = item.s_subtime
+        # 时间 .strftime('%Y-%m-%d %H:%M:%S')
+        data['s_subtime'] = item.s_subtime.strftime("%Y-%m-%d %H:%M:%S")
         # material
         data['details_info'] = material2json(item.m_id.all())
         datas.append(data)

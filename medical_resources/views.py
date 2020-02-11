@@ -23,7 +23,7 @@ from django.http import JsonResponse
 
 from medical_resources.utils import get_lat_lon_range
 import requests
-from server_api import settings
+from datetime import datetime
 
 
 class JSONResponse(HttpResponse):
@@ -187,11 +187,19 @@ def get_new_info(request, pindex):
         latitude = float(data['latitude'])
         km = float(data['search_range'])
         page_items_count = int(data['page_items_count'])
+
+        start_time = str(data['start_time'])
+        end_time = str(data['end_time'])
+
+        start_time = datetime.strptime(start_time, "%Y-%m-%d %H:%M:%S")
+        end_time = datetime.strptime(end_time, "%Y-%m-%d %H:%M:%S")
+
         max_lat, max_lot, min_lat, min_lot = get_lat_lon_range(latitude, longitude, km)
 
         # id__gte=724 >=724  ; id__lte=724 <=724
         queryset = Demand.objects.filter(s_lat__lte=max_lat, s_lon__lte=max_lot,
-                                         s_lat__gte=min_lat, s_lon__gte=min_lot).order_by('s_subtime')
+                                         s_lat__gte=min_lat, s_lon__gte=min_lot,
+                                         s_subtime__range=(start_time, end_time)).order_by('-s_subtime')
         paginator = Paginator(queryset, page_items_count)  # 实例化Paginator, 每页显示page_items_count条数据
 
         page = paginator.page(1) if pindex > int(paginator.num_pages) else paginator.page(pindex)
@@ -232,10 +240,16 @@ def get_me_info(request, pindex):
         u_id = str(data['u_id'])
         page_items_count = int(data['page_items_count'])
 
+        start_time = str(data['start_time'])
+        end_time = str(data['end_time'])
+
+        start_time = datetime.strptime(start_time, "%Y-%m-%d %H:%M:%S")
+        end_time = datetime.strptime(end_time, "%Y-%m-%d %H:%M:%S")
+
         # queryset = Demand.objects.filter(u_id=u_id).order_by('s_subtime')
 
         user = UserInfo.objects.get(open_id=u_id)
-        queryset = Demand.objects.filter(u_id=user.id).order_by('s_subtime')
+        queryset = Demand.objects.filter(u_id=user.id, s_subtime__range=(start_time, end_time)).order_by('-s_subtime')
 
         paginator = Paginator(queryset, page_items_count)  # 实例化Paginator, 每页显示page_items_count条数据
 
