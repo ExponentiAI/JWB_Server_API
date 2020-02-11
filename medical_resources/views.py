@@ -122,22 +122,16 @@ def UserRegister(request):
         print('NewUserRegisterSuccess')
         return JsonResponse({"msg": "NewUserRegisterSuccess"}, status=status.HTTP_201_CREATED)
 
-import numpy as np
+
 import time
-class MyEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, np.ndarray):
-            return obj.tolist()
-        elif isinstance(obj, bytes):
-            return str(obj, encoding='utf-8');
-        return json.JSONEncoder.default(self, obj)
+
 
 import ast
 import urllib.parse
 import urllib.request
 import json
 import argparse
-from profanity_check import predict, predict_prob
+
 from urllib.parse import urlencode
 
 # 提交供应和需求信息
