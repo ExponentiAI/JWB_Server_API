@@ -160,8 +160,42 @@ def SupAndDem(request):
     if request.method == 'POST':
         afferent_data = request.POST
         # 敏感词验证
-        if check_sensitive(afferent_data['store_name'],afferent_data['content']) != 0 :
-            return JsonResponse({"msg": "内容涉及敏感词！", "status_code": "401"}, status=status.HTTP_201_CREATED)
+        print(afferent_data['store_name'],afferent_data['content'])
+        if afferent_data['store_name']+afferent_data['content'] != '':
+            print('不为空')
+            if check_sensitive(afferent_data['store_name'],afferent_data['content']) != 0 :
+                return JsonResponse({"msg": "内容涉及敏感词！", "status_code": "401"}, status=status.HTTP_201_CREATED)
+            else:
+                if afferent_data['type'] == '1':
+                    this_store = afferent_data['store_name']
+                else:
+                    this_store = ''
+                demand = Demand.objects.create(
+                    u_id=UserInfo.objects.get(open_id=afferent_data['u_id']),
+                    s_lon=afferent_data['lon'],
+                    s_lat=afferent_data['lat'],
+                    s_nation=afferent_data['nation'],
+                    s_city=afferent_data['city'],
+                    s_province=afferent_data['province'],
+                    s_district=afferent_data['district'],
+                    s_street=afferent_data['street'],
+                    s_street_number=afferent_data['street_number'],
+                    s_content=afferent_data['content'],
+                    s_type=afferent_data['type'],
+                    s_range=afferent_data['range'],
+                    s_aging=afferent_data['aging'],
+                    s_subtime=afferent_data['subtime'],
+                    store_name=this_store
+                )
+                goods_arr = ast.literal_eval(afferent_data['goods'])
+                for index, value in enumerate(goods_arr):
+                    Material.objects.create(
+                        m_id=demand,
+                        type=index,
+                        goods_name=goods_arr[index]['goods_name'],
+                        count=goods_arr[index]['num_or_price']
+                    )
+                return JsonResponse({"msg": "操作成功！", "status_code": "201"}, status=status.HTTP_201_CREATED)
         else:
             if afferent_data['type'] == '1':
                 this_store = afferent_data['store_name']
