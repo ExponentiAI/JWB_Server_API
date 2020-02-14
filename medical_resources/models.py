@@ -54,7 +54,7 @@ class Material(models.Model):  # 供应物资表
         verbose_name_plural = 'Material Data'
     m_id = models.ForeignKey(Demand, on_delete=models.CASCADE, verbose_name='供需id', related_name='m_id', default="")
     type = models.IntegerField(verbose_name='物资类别', default="")  #
-    count = models.IntegerField(verbose_name='数量', default='')
+    count = models.FloatField(max_digits=5, decimal_places=2,verbose_name='数量/价格', default='')
     goods_name = models.CharField(max_length=100, verbose_name='物资名称', default="")
     def __str__(self):
         return self.goods_name
