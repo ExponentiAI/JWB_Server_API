@@ -188,6 +188,7 @@ def SupAndDem(request):
                     store_name=this_store
                 )
                 goods_arr = ast.literal_eval(afferent_data['goods'])
+                print(ast.literal_eval(afferent_data['goods']))
                 for index, value in enumerate(goods_arr):
                     Material.objects.create(
                         m_id=demand,
